@@ -19,9 +19,9 @@
 </div>
 
 <p align="center">
-  <img src="images/neuron.png"        height="180" style="width: auto; object-fit: contain; vertical-align: middle;" />
-  <img src="images/attractor.gif"     height="180" style="width: auto; object-fit: contain; vertical-align: middle;" />
-  <img src="images/wheel_robot.gif"   height="180" style="width: auto; object-fit: contain; vertical-align: middle;" />
+  <img src="images/neuron.png"        height="120" style="width: auto; object-fit: contain; vertical-align: middle;" />
+  <img src="images/attractor.gif"     height="120" style="width: auto; object-fit: contain; vertical-align: middle;" />
+  <img src="images/wheel_robot.gif"   height="120" style="width: auto; object-fit: contain; vertical-align: middle;" />
 </p>
 
 
