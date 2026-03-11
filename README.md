@@ -20,7 +20,7 @@
 
 <p align="center">
   <img src="images/neuron.png"        width="30%" style="vertical-align: middle;" />
-  <img src="images/attractor_s.gif"     width="32%" style="vertical-align: middle;" />
+  <img src="images/attractor.gif"     width="32%" style="vertical-align: middle;" />
   <img src="images/wheel_robot.gif"   width="32%" style="vertical-align: middle;" />
 </p>
 
