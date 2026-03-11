@@ -19,8 +19,8 @@
 </div>
 
 <p align="center">
-  <img src="images/cultured_neuron.png" width="31%" />
-  <img src="images/attractor.png" width="31%" />
+  <img src="images/neuron.png" width="31%" />
+  <img src="images/attractor.gif" width="31%" />
   <img src="images/wheel_robot.gif" width="31%" />
 </p>
 
