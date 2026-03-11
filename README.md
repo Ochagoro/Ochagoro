@@ -18,6 +18,11 @@
 
 </div>
 
+<p align="center">
+  <img src="images/cultured_neuron.png" width="31%" />
+  <img src="images/attractor.png" width="31%" />
+  <img src="images/robot.gif" width="31%" />
+</p>
 ---
 
 ## About Me
