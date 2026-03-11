@@ -31,11 +31,12 @@
     </td>
   </tr>
 </table>
+
 ---
 
 ## About Me
 
-I'm a Phd student at The Univerisity of Tokyo working at the intersection of:
+I'm a PhD student at The University of Tokyo working at the intersection of:
 
 - **Neuroscience**
 - **Robotics**
