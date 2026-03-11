@@ -21,7 +21,7 @@
 <p align="center">
   <img src="images/cultured_neuron.png" width="31%" />
   <img src="images/attractor.png" width="31%" />
-  <video src="images/wheel_robot.mov"
+  <video src="images/wheel_robot.mp4"
         width="31%"
         autoplay
         loop
