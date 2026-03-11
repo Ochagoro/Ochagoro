@@ -21,7 +21,14 @@
 <p align="center">
   <img src="images/cultured_neuron.png" width="31%" />
   <img src="images/attractor.png" width="31%" />
-  <img src="images/robot.gif" width="31%" />
+  <video src="images/wheel_robot.mov"
+        width="31%"
+        autoplay
+        loop
+        muted
+        playsinline
+        controls>
+  </video>
 </p>
 ---
 
