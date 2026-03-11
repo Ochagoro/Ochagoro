@@ -22,7 +22,7 @@
 
 ## About Me
 
-I'm a researcher/developer working at the intersection of:
+I'm a Phd student at The Univerisity of Tokyo working at the intersection of:
 
 - **Neuroscience**
 - **Robotics**
