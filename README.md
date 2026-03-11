@@ -18,13 +18,19 @@
 
 </div>
 
-<p align="center">
-  <img src="images/neuron.png"        height="120" style="width: auto; object-fit: contain; vertical-align: middle;" />
-  <img src="images/attractor.gif"     height="120" style="width: auto; object-fit: contain; vertical-align: middle;" />
-  <img src="images/wheel_robot.gif"   height="120" style="width: auto; object-fit: contain; vertical-align: middle;" />
-</p>
-
-
+<table align="center">
+  <tr>
+    <td valign="middle" align="center" width="30%">
+      <img src="images/neuron.png" width="100%" />
+    </td>
+    <td valign="middle" align="center" width="32%">
+      <img src="images/attractor.gif" width="100%" />
+    </td>
+    <td valign="middle" align="center" width="32%">
+      <img src="images/wheel_robot.gif" width="100%" />
+    </td>
+  </tr>
+</table>
 ---
 
 ## About Me
