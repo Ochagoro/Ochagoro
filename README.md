@@ -19,9 +19,9 @@
 </div>
 
 <p align="center">
-  <img src="images/neuron.png" height="180" />
-  <img src="images/attractor.gif" height="180" />
-  <img src="images/wheel_robot.gif" height="180" />
+  <img src="images/neuron.png" style="height:160px; width:auto;" />
+  <img src="images/attractor.gif" style="height:160px; width:auto;" />
+  <img src="images/wheel_robot.gif" style="height:160px; width:auto;" />
 </p>
 
 
