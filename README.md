@@ -97,4 +97,4 @@ My current interests include:
 
 - **Best Student Poster Award**  
   The 14th RIEC International Symposium on Brain Functions and Brain Computer  
-  国際シンポジウムにおける学生ポスター発表賞。  
+  国際シンポジウムにて受賞。  
