@@ -82,7 +82,7 @@ My current interests include:
   [Official Site](https://www.jdla.org)
 
 - **Senior Virtual Reality Specialist**  
-  バーチャルリアリティ技術者認定資格(セオリーコース・アプリケーションコース)  
+  上級バーチャルリアリティ技術者(セオリーコース・アプリケーションコース)  
   [Official Site](https://vrsj.org)
 
 - **Waseda University Certification Program in Data Science, Advanced Level**  
