@@ -377,18 +377,44 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
 .tip b{color:var(--gold);font-weight:600;font-family:var(--f-mono);font-size:.68rem;
   letter-spacing:.13em;text-transform:uppercase;display:block;margin-bottom:.1rem}
 
-/* ───────────── alternates ───────────── */
+/* ───────────── alternates ─────────────
+   The plan switcher is radio inputs and labels, not buttons driven by script.
+   A file opened in a preview pane or an in-app browser may run no JS at all,
+   and a switcher that needs JS then strands every panel but the first.
+   Radios need none: :checked reveals the matching panel, and arrow-key
+   navigation between them comes free with the native control. */
 #alts{background:var(--night)}
+.switch > input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .tabs{display:flex;gap:.4rem;margin:1.8rem 0 1.5rem;flex-wrap:wrap}
-.tabs button{
+.tabs label{
   font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;
   color:var(--stone-300);background:transparent;border:var(--rail);border-radius:999px;
-  padding:.45rem .85rem;cursor:pointer;transition:all .2s;
+  padding:.45rem .85rem;cursor:pointer;transition:color .2s,border-color .2s,background .2s;
+  -webkit-user-select:none;user-select:none;
 }
-.tabs button[aria-selected="true"]{color:var(--night);background:var(--snow);border-color:var(--snow);font-weight:600}
-.tabs button:hover:not([aria-selected="true"]){color:var(--snow);border-color:var(--stone-400)}
+.tabs label:hover{color:var(--snow);border-color:var(--stone-400)}
 
-.panel[hidden]{display:none}
+#pk-b:checked  ~ .tabs label[for="pk-b"],
+#pk-c:checked  ~ .tabs label[for="pk-c"],
+#pk-d1:checked ~ .tabs label[for="pk-d1"],
+#pk-d2:checked ~ .tabs label[for="pk-d2"],
+#pk-d3:checked ~ .tabs label[for="pk-d3"]{
+  color:var(--night);background:var(--snow);border-color:var(--snow);font-weight:600;
+}
+#pk-b:focus-visible  ~ .tabs label[for="pk-b"],
+#pk-c:focus-visible  ~ .tabs label[for="pk-c"],
+#pk-d1:focus-visible ~ .tabs label[for="pk-d1"],
+#pk-d2:focus-visible ~ .tabs label[for="pk-d2"],
+#pk-d3:focus-visible ~ .tabs label[for="pk-d3"]{
+  outline:2px solid var(--alpen);outline-offset:3px;
+}
+
+.switch > .panel{display:none}
+#pk-b:checked  ~ #p-b,
+#pk-c:checked  ~ #p-c,
+#pk-d1:checked ~ #p-d1,
+#pk-d2:checked ~ #p-d2,
+#pk-d3:checked ~ #p-d3{display:block}
 .panel{
   border:var(--rail);border-radius:3px;overflow:hidden;background:var(--stone-900);
   animation:fadein .45s ease;
@@ -434,9 +460,16 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
 .reset{
   font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
   background:none;border:var(--rail);border-radius:999px;color:var(--stone-400);
-  padding:.35rem .75rem;cursor:pointer;transition:all .2s;
+  padding:.35rem .75rem;cursor:pointer;transition:color .2s,border-color .2s;
 }
 .reset:hover{color:var(--snow);border-color:var(--stone-400)}
+.reset[hidden]{display:none}
+.nojs{
+  margin-top:1rem;border:var(--rail);border-left:2px solid var(--gold);border-radius:0 3px 3px 0;
+  padding:.8rem .95rem;font-size:.85rem;line-height:1.75;color:var(--stone-300);
+  background:#0D1219;
+  background:color-mix(in srgb,var(--night) 55%,transparent);
+}
 
 .kits{display:grid;gap:1.2rem;margin-top:2rem}
 @media(min-width:48rem){.kits{grid-template-columns:repeat(3,1fr);align-items:start}}
@@ -649,13 +682,17 @@ footer a{color:var(--stone-300)}
     <h3 class="h2 rv" style="font-size:clamp(1.35rem,1.1rem + 1.4vw,1.9rem);margin-top:3rem">着いてからの4時間、3つの使い方</h3>
     <p class="lede rv">ゲートを15:30に通れば、日没20:05まで4時間半あります。どれを選ぶかは「明日をどう過ごすか」で決まります。</p>
 
-    <div class="tabs rv" role="tablist" aria-label="到着日午後の選択">
-      <button role="tab" id="tab-d1" aria-controls="p-d1" aria-selected="true">推奨｜セコイアの森</button>
-      <button role="tab" id="tab-d2" aria-controls="p-d2" aria-selected="false">Hetch Hetchy</button>
-      <button role="tab" id="tab-d3" aria-controls="p-d3" aria-selected="false">渓谷に直行</button>
-    </div>
+    <div class="switch rv" role="radiogroup" aria-label="到着日午後の選択">
+      <input type="radio" name="dayzero" id="pk-d1" checked>
+      <input type="radio" name="dayzero" id="pk-d2">
+      <input type="radio" name="dayzero" id="pk-d3">
+      <div class="tabs">
+        <label for="pk-d1">推奨｜セコイアの森</label>
+        <label for="pk-d2">Hetch Hetchy</label>
+        <label for="pk-d3">渓谷に直行</label>
+      </div>
 
-    <div class="panel" id="p-d1" role="tabpanel" aria-labelledby="tab-d1">
+    <div class="panel" id="p-d1">
       <div class="banner">
         <img src="{{IMG:sequoia}}" alt="トゥオルミ・グローブのジャイアントセコイアを見上げる" loading="lazy" decoding="async">
         <div class="cap">
@@ -677,7 +714,7 @@ footer a{color:var(--stone-300)}
       </div>
     </div>
 
-    <div class="panel" id="p-d2" role="tabpanel" aria-labelledby="tab-d2" hidden>
+    <div class="panel" id="p-d2">
       <div class="banner">
         <img src="{{IMG:hetchhetchy}}" alt="ヘッチヘッチー貯水池と周囲の花崗岩の壁" loading="lazy" decoding="async">
         <div class="cap">
@@ -699,7 +736,7 @@ footer a{color:var(--stone-300)}
       </div>
     </div>
 
-    <div class="panel" id="p-d3" role="tabpanel" aria-labelledby="tab-d3" hidden>
+    <div class="panel" id="p-d3">
       <div class="banner">
         <img src="{{IMG:valleyview}}" alt="Valley View から見た夕方のエル・キャピタンとマーセド川" loading="lazy" decoding="async">
         <div class="cap">
@@ -719,6 +756,7 @@ footer a{color:var(--stone-300)}
         </ul>
         <p class="verdict"><b>正直に言うと、これは勧めません。</b>明日の朝いちで Valley View と Tunnel View に行く設計なので、今日行くと同じ場所を2回見ることになります。そして帰着21:30から4:45起きは、明日の後半で必ず効いてきます。<br><b>選ぶなら条件つきで：</b>明日を「ゆったりプラン」に差し替えて、今夜を旅のハイライトにする。それなら筋が通ります。</p>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -984,12 +1022,15 @@ footer a{color:var(--stone-300)}
     <h2 class="h2 rv">渓谷に行かない、<br>という選択肢もある。</h2>
     <p class="lede rv">West Gate Lodge から Crane Flat（Tioga Rd の入口）まではわずか35分。実は渓谷より近い。混雑と暑さが苦手なら、こちらのほうが体験の密度は高いかもしれません。</p>
 
-    <div class="tabs" role="tablist" aria-label="別プランの選択">
-      <button role="tab" id="tab-b" aria-controls="p-b" aria-selected="true">高地プラン｜Tioga Road</button>
-      <button role="tab" id="tab-c" aria-controls="p-c" aria-selected="false">ゆったりプラン｜半日</button>
-    </div>
+    <div class="switch" role="radiogroup" aria-label="別プランの選択">
+      <input type="radio" name="altplan" id="pk-b" checked>
+      <input type="radio" name="altplan" id="pk-c">
+      <div class="tabs">
+        <label for="pk-b">高地プラン｜Tioga Road</label>
+        <label for="pk-c">ゆったりプラン｜半日</label>
+      </div>
 
-    <div class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
+    <div class="panel" id="p-b">
       <div class="banner">
         <img src="{{IMG:tenaya}}" alt="ティオガ道沿いのテナヤ湖と周囲の花崗岩ドーム" loading="lazy" decoding="async">
         <div class="cap">
@@ -1013,7 +1054,7 @@ footer a{color:var(--stone-300)}
       </div>
     </div>
 
-    <div class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+    <div class="panel" id="p-c">
       <div class="banner">
         <img src="{{IMG:sequoia}}" alt="トゥオルミ・グローブのジャイアントセコイアを見上げる" loading="lazy" decoding="async">
         <div class="cap">
@@ -1035,6 +1076,7 @@ footer a{color:var(--stone-300)}
         <p class="verdict"><b>向いているのは：</b>小さい子どもがいる／到着当日で疲れている／翌日も予定がある／とにかく無理をしたくない。<br><b>削ってはいけないもの：</b>Tunnel View と、川に入る時間。この2つさえあれば「ヨセミテに行った」は成立します。</p>
       </div>
     </div>
+    </div>
   </div>
 </section>
 
@@ -1049,11 +1091,12 @@ footer a{color:var(--stone-300)}
           <circle class="bg" cx="22" cy="22" r="19"/>
           <circle class="fg" id="ringfg" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/>
         </svg>
-        <p class="txt" style="margin:0"><b><span id="ckdone">0</span> / <span id="cktotal">0</span></b>準備できた</p>
+        <p class="txt" style="margin:0"><b><span id="ckdone">0</span> / <span id="cktotal">24</span></b>準備できた</p>
       </div>
     </div>
-    <p class="lede rv" style="margin-top:1rem">タップでチェックできます（この端末に保存されます）。<strong>「必携」がすべて埋まるまで出発しないでください。</strong>園内はほぼ買い足しがきかず、圏外で調べものもできません。</p>
-    <p style="margin-top:.6rem"><button class="reset" id="reset">チェックをリセット</button></p>
+    <p class="lede rv" style="margin-top:1rem">タップでチェックできます。<strong>「必携」がすべて埋まるまで出発しないでください。</strong>園内はほぼ買い足しがきかず、圏外で調べものもできません。</p>
+    <p style="margin-top:.6rem"><button class="reset" id="reset" hidden>チェックをリセット</button></p>
+    <noscript><p class="nojs">このファイルはプレビュー表示のため、チェック数のカウントと保存が動きません。チェック自体は付きます。数を数えたい・次に開いたときも残したい場合は、ブラウザ（Safari／Chrome）で開いてください。</p></noscript>
 
     <div class="kits">
       <div class="kit must">
@@ -1224,27 +1267,7 @@ footer a{color:var(--stone-300)}
     chart.classList.add('in');
   }
 
-  /* tab groups — scoped per tablist, since the page has more than one */
-  document.querySelectorAll('[role="tablist"]').forEach(list => {
-    const tabs = [...list.querySelectorAll('[role="tab"]')];
-    const show = (id) => tabs.forEach(t => {
-      const on = t.id === id;
-      t.setAttribute('aria-selected', on);
-      t.tabIndex = on ? 0 : -1;
-      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
-    });
-    tabs.forEach((t, i) => {
-      t.tabIndex = t.getAttribute('aria-selected') === 'true' ? 0 : -1;
-      t.addEventListener('click', () => show(t.id));
-      t.addEventListener('keydown', (e) => {
-        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-        if (!d) return;
-        e.preventDefault();
-        const n = tabs[(i + d + tabs.length) % tabs.length];
-        n.focus(); show(n.id);
-      });
-    });
-  });
+  /* plan switchers need no script — see .switch in the stylesheet */
 
   /* packing checklist */
   const KEY = 'yose-pack-v1';
@@ -1252,7 +1275,9 @@ footer a{color:var(--stone-300)}
   const ring = document.getElementById('ringfg');
   const CIRC = 2 * Math.PI * 19;
   const done = document.getElementById('ckdone');
+  const reset = document.getElementById('reset');
   document.getElementById('cktotal').textContent = boxes.length;
+  reset.hidden = false;   /* only offer a reset once there is a script to do it */
 
   let saved = [];
   try { saved = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch {}
@@ -1267,7 +1292,7 @@ footer a{color:var(--stone-300)}
     try { localStorage.setItem(KEY, JSON.stringify(boxes.map((b,i)=>b.checked?i:-1).filter(i=>i>=0))); } catch {}
   };
   boxes.forEach(b => b.addEventListener('change', () => { paint(); save(); }));
-  document.getElementById('reset').addEventListener('click', () => {
+  reset.addEventListener('click', () => {
     boxes.forEach(b => b.checked = false); paint(); save();
   });
   ring.style.strokeDasharray = CIRC;

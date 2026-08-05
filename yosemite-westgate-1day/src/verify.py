@@ -1,7 +1,8 @@
 """Prove the two builds render identically.
 
-The page ships twice: as a complete document (index.html) and as a body
-fragment that a host wraps in its own <head> and reset (artifact-fragment.html).
+The Japanese page ships twice: as a complete document and as a body fragment
+that a host wraps in its own <head> and reset. This compares those two — same
+language, same body, different surroundings.
 Any property left at a browser default renders one way standalone and another
 way inside the host — a silently dropped declaration is the usual cause, since
 what an element falls back to is exactly what the reset decides.
@@ -95,7 +96,7 @@ def main():
     failures = 0
     for name, vp in VIEWPORTS:
         print(f"\n=== {name} {vp['width']}x{vp['height']} ===")
-        ab, ash = capture("standalone.html", f"{name}-standalone", vp)
+        ab, ash = capture("standalone-ja.html", f"{name}-standalone", vp)
         bb, bsh = capture("hosted.html", f"{name}-hosted", vp)
 
         moved = [k for k in ab if k in bb and ab[k] != bb[k]]
