@@ -482,6 +482,25 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
   color:var(--stone-400);line-height:1.75;display:grid;gap:.05rem;
 }
 .card b{color:var(--stone-300);font-weight:500}
+/* Navigation handoff. Coordinates rather than name search: a name that
+   resolves to the wrong thing in the Sierra is worse than no link at all.
+   Waze and Google Maps universal links open the app when it is installed. */
+.go{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem}
+.go a{
+  font-family:var(--f-mono);font-weight:500;font-size:.66rem;letter-spacing:.08em;
+  text-decoration:none;color:var(--stone-300);
+  border:var(--rail);border-radius:999px;padding:.28rem .6rem;
+  display:inline-flex;align-items:center;gap:.3rem;
+  transition:color .2s,border-color .2s,background .2s;
+}
+.go a:hover,.go a:focus-visible{color:var(--night);background:var(--snow);border-color:var(--snow)}
+.go a.waze{color:var(--ice);border-color:color-mix(in srgb,var(--ice) 45%,transparent)}
+.go a.waze:hover,.go a.waze:focus-visible{color:var(--night);background:var(--ice);border-color:var(--ice)}
+.go .coord{
+  font-family:var(--f-mono);font-size:.63rem;color:var(--stone-400);
+  align-self:center;padding-left:.15rem;font-variant-numeric:tabular-nums;
+}
+
 .why{font-size:.87rem;color:var(--stone-300);line-height:1.75}
 .why strong{color:var(--snow);font-weight:600}
 .why em{font-style:normal;color:var(--gold)}
@@ -687,11 +706,11 @@ footer a{color:var(--stone-300)}
         <li><span class="dot"></span><span class="nm"><b>Mountain View 発</b><span>CA-237 経由で I-680 北へ</span></span><span class="tm">11:00</span></li>
         <li><span class="dot"></span><span class="nm"><b>Livermore / I-580</b><span>渋滞の可能性があるのはここまで</span></span><span class="tm">11:50</span></li>
         <li><span class="dot"></span><span class="nm"><b>Manteca で CA-120 へ</b><span>I-205 から分岐。ここから一本道</span></span><span class="tm">12:20</span></li>
-        <li class="key"><span class="dot"></span><span class="nm"><b>Backwoods Burgers で昼食</b><span>1214 W F St, Oakdale ／ <b>出発時に給油を済ませる</b></span></span><span class="tm">12:50</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Backwoods Burgers で昼食</b><span>1214 W F St, Oakdale ／ <b>出発時に給油を済ませる</b></span><span class="go"><a class="waze" href="https://waze.com/ul?q=Backwoods%20Burgers%2C%201214%20W%20F%20St%2C%20Oakdale%2C%20CA&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=Backwoods%20Burgers%2C%201214%20W%20F%20St%2C%20Oakdale%2C%20CA">Maps</a><span class="coord">名前で検索</span></span></span><span class="tm">12:50</span></li>
         <li><span class="dot"></span><span class="nm"><b>Moccasin → New Priest Grade</b><span>本線を使う。Old Priest Grade は勾配17%</span></span><span class="tm">14:00</span></li>
-        <li class="key"><span class="dot"></span><span class="nm"><b>Mar-Val Food Stores</b><span>19000 Main St, Groveland ／ 明日の食料・水・氷。30分</span></span><span class="tm">14:50</span></li>
-        <li class="key"><span class="dot"></span><span class="nm"><b>Rainbow Pool Day Use Area</b><span>Groveland から東へ15マイル · $10／台・40分</span></span><span class="tm">15:45</span></li>
-        <li class="key"><span class="dot"></span><span class="nm"><b>Yosemite Westgate Lodge</b><span>チェックイン開始ちょうど。荷物を降ろして25分</span></span><span class="tm">16:30</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Mar-Val Food Stores</b><span>19000 Main St, Groveland ／ 明日の食料・水・氷。30分</span><span class="go"><a class="waze" href="https://waze.com/ul?q=Mar-Val%20Food%20Stores%2C%2019000%20Main%20St%2C%20Groveland%2C%20CA&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=Mar-Val%20Food%20Stores%2C%2019000%20Main%20St%2C%20Groveland%2C%20CA">Maps</a><span class="coord">名前で検索</span></span></span><span class="tm">14:50</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Rainbow Pool Day Use Area</b><span>Groveland から東へ15マイル · $10／台・40分</span><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.82146,-120.01278&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.82146,-120.01278">Maps</a><span class="coord">37.82146, -120.01278</span></span></span><span class="tm">15:45</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Yosemite Westgate Lodge</b><span>チェックイン開始ちょうど。荷物を降ろして25分</span><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.81724,-120.05983&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.81724,-120.05983">Maps</a><span class="coord">37.81724, -120.05983</span></span></span><span class="tm">16:30</span></li>
         <li class="key"><span class="dot"></span><span class="nm"><b>Big Oak Flat 入口ゲート</b><span>$35／台。夕方は出る車のほうが多い</span></span><span class="tm">17:15</span></li>
       </ul>
     </div>
@@ -814,12 +833,12 @@ footer a{color:var(--stone-300)}
       <div class="head"><span class="t">Highway 120 Corridor</span><span class="r">ロッジからの片道</span></div>
       <ul class="stops">
         <li><span class="dot"></span><span class="nm"><b>Yosemite Westgate Lodge</b><span>Buck Meadows · 標高 約930m</span></span><span class="tm">00:00</span></li>
-        <li><span class="dot"></span><span class="nm"><b>Rim of the World 展望台</b><span>Stanislaus NF · トイレあり</span></span><span class="tm">約10分</span></li>
+        <li><span class="dot"></span><span class="nm"><b>Rim of the World 展望台</b><span>Stanislaus NF · トイレあり · ロッジの東 2km</span><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.82198,-120.0392&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.82198,-120.0392">Maps</a><span class="coord">37.82198, -120.0392</span></span></span><span class="tm">約3分</span></li>
         <li class="key"><span class="dot"></span><span class="nm"><b>Big Oak Flat 入口ゲート</b><span>19km · $35／台（7日間有効）</span></span><span class="tm">約20分</span></li>
-        <li><span class="dot"></span><span class="nm"><b>Crane Flat</b><span>Tioga Rd 分岐 · 園内ガソリンスタンド</span></span><span class="tm">約35分</span></li>
+        <li><span class="dot"></span><span class="nm"><b>Crane Flat</b><span>Tioga Rd 分岐 · 園内ガソリンスタンド</span><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.75267,-119.7973&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.75267,-119.7973">Maps</a><span class="coord">37.75267, -119.7973</span></span></span><span class="tm">約35分</span></li>
         <li class="key"><span class="dot"></span><span class="nm"><b>Yosemite Valley</b><span>Valley View / Tunnel View / Village</span></span><span class="tm">約1時間10分</span></li>
-        <li><span class="dot"></span><span class="nm"><b>Tenaya Lake</b><span>Tioga Rd · 標高 2,484m</span></span><span class="tm">約1時間15分</span></li>
-        <li class="key"><span class="dot"></span><span class="nm"><b>Glacier Point</b><span>標高 2,199m · 渓谷経由</span></span><span class="tm">約2時間10分</span></li>
+        <li><span class="dot"></span><span class="nm"><b>Tenaya Lake</b><span>Tioga Rd · 標高 2,484m</span><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.8311,-119.45965&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.8311,-119.45965">Maps</a><span class="coord">37.8311, -119.45965</span></span></span><span class="tm">約1時間15分</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Glacier Point</b><span>標高 2,199m · 渓谷経由</span><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.73067,-119.57367&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.73067,-119.57367">Maps</a><span class="coord">37.73067, -119.57367</span></span></span><span class="tm">約2時間10分</span></li>
       </ul>
     </div>
 
@@ -922,7 +941,7 @@ footer a{color:var(--stone-300)}
         <p class="clock"><span class="t">05:45</span><span class="meta">Big Oak Flat 入口ゲート</span></p>
         <h3>ゲート待ちゼロで入園</h3>
         <p>$35／台、7日間有効。America the Beautiful パス（$80）があればそれで。<strong>この時間なら列はありません。</strong>9時に来ると同じゲートで20〜40分並びます。ここが西ゲート泊の最大の投資回収ポイント。</p>
-        <div class="chips"><span class="acc">$35 / vehicle</span><span>カード可</span><span>標高 約1,490m</span></div>
+        <div class="chips"><span class="acc">$35 / vehicle</span><span>カード可</span><span>標高 約1,490m</span></div><span class="go"><a class="waze" href="https://waze.com/ul?q=Big%20Oak%20Flat%20Entrance%2C%20Yosemite%20National%20Park&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=Big%20Oak%20Flat%20Entrance%2C%20Yosemite%20National%20Park">Maps</a><span class="coord">名前で検索</span></span>
       </article>
 
       <article class="stop rv hi">
@@ -930,7 +949,7 @@ footer a{color:var(--stone-300)}
         <h3>マーセド川の水鏡に、エル・キャピタン</h3>
         <figure class="shotfig">
           <img src="{{IMG:valleyview}}" alt="Valley View から見た朝のエル・キャピタンとマーセド川" loading="lazy" decoding="async">
-          <figcaption><span>Valley View / Merced River</span><span>1,200 m</span></figcaption>
+          <figcaption><span>Valley View / Merced River</span><span>1,200 m</span></figcaption><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.71728,-119.66187&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.71728,-119.66187">Maps</a><span class="coord">37.71728, -119.66187</span></span>
         </figure>
         <p>El Portal Rd 沿いの小さな路肩。8月は水位が下がって流れが止まり、<strong>むしろ鏡のように映り込みます。</strong>朝の斜光が谷の奥から差してくる15分間、ここにいる人は数人。渓谷で最初に見るべき場所です。</p>
         <div class="tip"><b>Note</b>駐車スペースは10台ほど。西向き（下り）車線側にあるので、通り過ぎたら次のターンアウトでUターン。</div>
@@ -940,7 +959,7 @@ footer a{color:var(--stone-300)}
         <p class="clock"><span class="t">07:00</span><span class="meta">Tunnel View · 20分</span></p>
         <h3>この1枚のために、早起きした</h3>
         <p>エル・キャピタン、ブライダルベール滝、ハーフドームが一望に収まる、ヨセミテでもっとも有名な視点。<strong>8時を過ぎると駐車場は満車で路肩待ちの列</strong>ができます。7時ならまだ空いています。朝は逆光気味なので、露出を少し下げて撮ると谷の奥行きが出ます。</p>
-        <div class="chips"><span>Wawona Rd (Hwy 41)</span><span>トイレあり</span><span>渓谷から車で10分の登り</span></div>
+        <div class="chips"><span>Wawona Rd (Hwy 41)</span><span>トイレあり</span><span>渓谷から車で10分の登り</span></div><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.71557,-119.67689&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.71557,-119.67689">Maps</a><span class="coord">37.71557, -119.67689</span></span>
       </article>
 
       <article class="stop rv">
@@ -948,7 +967,7 @@ footer a{color:var(--stone-300)}
         <h3>8月でも落ちている、数少ない滝</h3>
         <figure class="shotfig">
           <img src="{{IMG:bridalveil}}" alt="ブライダルベール滝と、風に流される水しぶき" loading="lazy" decoding="async">
-          <figcaption><span>Bridalveil Fall · 189 m</span><span>往復 0.8 km / 舗装路</span></figcaption>
+          <figcaption><span>Bridalveil Fall · 189 m</span><span>往復 0.8 km / 舗装路</span></figcaption><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.71681,-119.64677&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.71681,-119.64677">Maps</a><span class="coord">37.71681, -119.64677</span></span>
         </figure>
         <p>駐車場から往復800m、舗装された緩い坂。夏は「花嫁のベール」の名の通り細く、風で横に流されます。<strong>朝いちなら展望デッキを独占できます。</strong>足元の岩は年中濡れていて滑るので、展望台から先には出ないこと。</p>
       </article>
@@ -957,7 +976,7 @@ footer a{color:var(--stone-300)}
         <p class="clock"><span class="t">08:20</span><span class="meta">Yosemite Village · 車をここに置く</span></p>
         <h3>今日、車を動かすのはこれが最後</h3>
         <p>渓谷に入ったら Yosemite Village か Curry Village の駐車場に停め、<strong>あとは無料シャトルと自分の足だけで動きます。</strong>渓谷内を車で移動するのは時間の無駄（渋滞と駐車場探しで1回30分は溶ける）。8時台なら確実に停められます。</p>
-        <div class="chips"><span class="acc">無料シャトル 夏季 朝〜夜</span><span>レンタサイクルもあり</span><span>給水所あり</span></div>
+        <div class="chips"><span class="acc">無料シャトル 夏季 朝〜夜</span><span>レンタサイクルもあり</span><span>給水所あり</span></div><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.74686,-119.58447&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.74686,-119.58447">Maps</a><span class="coord">37.74686, -119.58447</span></span>
         <div class="tip"><b>ここで補給</b><b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Village Store</b>（8:00–22:00）で昼のサンドイッチと行動食、ボトルに給水。デリで済ませるなら <b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Degnan's Kitchen</b>（朝食7:00–11:00）。熱いものとコーヒーが欲しければ <b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Base Camp Eatery</b>（6:30開店・Starbucks併設）。園内で食べ物を買えるのはこの一帯だけで、昼は行列します。</div>
       </article>
 
@@ -966,7 +985,7 @@ footer a{color:var(--stone-300)}
         <h3>今日いちばんの運動：Vernal Fall</h3>
         <figure class="shotfig">
           <img src="{{IMG:merced}}" alt="ヨセミテ渓谷を流れるマーセド川と草地" loading="lazy" decoding="async">
-          <figcaption><span>Merced River · Yosemite Valley</span><span>Happy Isles 起点</span></figcaption>
+          <figcaption><span>Merced River · Yosemite Valley</span><span>Happy Isles 起点</span></figcaption><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.72993,-119.55905&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.72993,-119.55905">Maps</a><span class="coord">37.72993, -119.55905</span></span>
         </figure>
         <div class="tip"><b>木曜日はここが閉まっている</b>Mist Trail の<b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">階段部分（JMT分岐〜Vernal Fall 上）は、月〜木の 7:00–15:30 が閉鎖</b>（10月まで工事）。9時にあの階段を登るルートは、明日は選べません。下の A と B はそれを踏まえた選択肢です。</div>
         <p>シャトルで Happy Isles へ。<strong>Footbridge までの道は曜日も時間も関係なく開いています。</strong></p>
@@ -983,7 +1002,7 @@ footer a{color:var(--stone-300)}
 
       <article class="stop rv">
         <p class="clock"><span class="t">12:30</span><span class="meta">昼食 · 川辺</span></p>
-        <h3>Swinging Bridge の河原でピクニック</h3>
+        <h3>Swinging Bridge の河原でピクニック</h3><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.73695,-119.60026&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.73695,-119.60026">Maps</a><span class="coord">37.73695, -119.60026</span></span>
         <p>買っておいたサンドイッチを、マーセド川の砂地で。レストランに並ぶ時間がもったいないし、この時期の川辺のほうが確実に気持ちいい。<strong>食べ終わったゴミは絶対に置いていかない</strong>（熊とカラスが来ます）。</p>
       </article>
 
@@ -1013,7 +1032,7 @@ footer a{color:var(--stone-300)}
           <figcaption><span>Glacier Point → Half Dome</span><span>渓谷底から +1,000 m</span></figcaption>
         </figure>
         <p>渓谷から Wawona Rd → Glacier Point Rd で約1時間。<strong>駐車場から100m、舗装路を歩くだけで断崖の縁に出ます。</strong>足元1,000m下にさっきまでいた渓谷、正面にハーフドームの丸い背中。ヨセミテで「労力あたりの絶景」が最大の場所です。ここで上着を出してください。すでに空気が違います。</p>
-        <div class="chips"><span class="acc">2,199 m</span><span>バリアフリー</span><span>売店は 9:30–17:00</span><span>夕方は 12〜16℃</span></div>
+        <div class="chips"><span class="acc">2,199 m</span><span>バリアフリー</span><span>売店は 9:30–17:00</span><span>夕方は 12〜16℃</span></div><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.73067,-119.57367&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.73067,-119.57367">Maps</a><span class="coord">37.73067, -119.57367</span></span>
         <div class="tip"><b>売店は17:00で閉まる</b>Glacier Point Gift Shop &amp; Snack Stand は9:30–17:00。16:45着ならぎりぎり間に合いますが、<b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">20:05の日没まで粘るなら夕食・行動食・水は渓谷から持って上がるのが前提です。</b></div>
       </article>
 
@@ -1022,11 +1041,11 @@ footer a{color:var(--stone-300)}
         <h3>日没まで、もうひと歩き</h3>
         <figure class="shotfig">
           <img src="{{IMG:taftpoint}}" alt="タフトポイントの断崖と、その先に広がるヨセミテ渓谷" loading="lazy" decoding="async">
-          <figcaption><span>Taft Point · 2,286 m</span><span>柵のない裂け目（Fissures）</span></figcaption>
+          <figcaption><span>Taft Point · 2,286 m</span><span>柵のない裂け目（Fissures）</span></figcaption><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.71311,-119.60461&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.71311,-119.60461">Maps</a><span class="coord">37.71311, -119.60461</span></span>
         </figure>
         <p><strong>Sentinel Dome</strong>（往復3.5km・↑120m・2,476m）は、この日の最高地点。丸い花崗岩のドームの上に立つと360度、ハーフドームからシエラの奥まで遮るものがありません。<strong>Taft Point</strong>（往復3.5km・ほぼ平坦）は、岩盤に走る深い裂け目と柵のない絶壁。高所が平気な人にはこちらのほうが刺さります。</p>
         <div class="tip"><b>安全</b>Taft Point には手すりがほとんどありません。縁から2m以上離れる、写真に夢中で後ずさりしない、子どもからは手を離さない。毎年ここで事故が起きています。</div>
-        <div class="chips"><span>トレイル入口は Glacier Point Rd 沿い</span><span>ヘッドランプ必携</span></div>
+        <div class="chips"><span>トレイル入口は Glacier Point Rd 沿い</span><span>ヘッドランプ必携</span></div><span class="go"><a class="waze" href="https://waze.com/ul?ll=37.72298,-119.58433&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.72298,-119.58433">Maps</a><span class="coord">37.72298, -119.58433</span></span>
       </article>
 
       <article class="stop rv hi">
@@ -1137,6 +1156,7 @@ footer a{color:var(--stone-300)}
           <li>
             <p class="shopname">Backwoods Burgers<span class="tag hot">12:50 昼食</span></p>
             <p class="card"><b>1214 W F St, Oakdale, CA 95361</b><span>水 11:00–20:00（金土は21:00まで）</span><span>(209) 322-2953</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?q=Backwoods%20Burgers%2C%201214%20W%20F%20St%2C%20Oakdale%2C%20CA&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=Backwoods%20Burgers%2C%201214%20W%20F%20St%2C%20Oakdale%2C%20CA">Maps</a><span class="coord">名前で検索</span></span>
             <p class="why">Oakdale 市内の Hwy 120 は F Street という名前で走っていて、この店はその真上。<strong>ヨセミテからの帰り客の定番で、山道に入る前の最後のまともな食事です。</strong>Tumbleweed（ベーコン＋BBQソース＋オニオンヘイストロー）が看板。<em>候補：Sno White Drive In / Taqueria Jarro Viejo / Bistro 120 — 名前だけで営業時間は未確認。</em></p>
           </li>
           <li>
@@ -1147,26 +1167,31 @@ footer a{color:var(--stone-300)}
           <li>
             <p class="shopname">Mar-Val Food Stores<span class="tag hot">14:15 明日の食料</span></p>
             <p class="card"><b>19000 Main St（State Hwy 120）, Groveland, CA 95321</b><span>毎日 7:00–22:30</span><span>(209) 962-7452</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?q=Mar-Val%20Food%20Stores%2C%2019000%20Main%20St%2C%20Groveland%2C%20CA&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=Mar-Val%20Food%20Stores%2C%2019000%20Main%20St%2C%20Groveland%2C%20CA">Maps</a><span class="coord">名前で検索</span></span>
             <p class="why"><strong>明日の朝食・昼のサンドイッチ・水・氷・行動食を、ここで全部買います。</strong>ここから東に、まともな食料品店はもうありません。60年以上この地域でやっている店で、小さな町のスーパーとしては品揃えが良いほうです。夜22:30までなので、前夜の買い足しにも使えます。</p>
           </li>
           <li>
             <p class="shopname">Iron Door Saloon<span class="tag">15分の寄り道</span></p>
             <p class="card"><b>18761 Main St, Groveland, CA 95321</b><span>営業時間は未確認（昼から開いている）</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?ll=37.83915,-120.22981&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.83915,-120.22981">Maps</a><span class="coord">37.83915, -120.22981</span></span>
             <p class="why">1850年代の雑貨店を起源とする酒場で、<strong>「カリフォルニア最古の営業中サルーン」を称しています</strong>——ただしこの主張は検証が難しく、酒場になったのは1896年という説もあります。重い鉄扉と当時のままの内装は本物で、買い物のついでに15分覗く価値はあります。</p>
           </li>
           <li>
             <p class="shopname">Rainbow Pool Day Use Area<span class="tag hot">15:05 水遊び</span></p>
             <p class="card"><b>State Hwy 120 · Groveland から東へ約15マイル</b><span>5〜9月 · $10／台</span><span>トイレあり／飲料水なし・ゴミは持ち帰り</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?ll=37.82146,-120.01278&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.82146,-120.01278">Maps</a><span class="coord">37.82146, -120.01278</span></span>
             <p class="why">South Fork Tuolumne River の天然プール。駐車場から数分で水辺に降りられます。3時間半の運転を流すのに最適。<strong>ただし飛び込みは絶対にしないでください。</strong>この滝では毎年のように死者が出ていて、レンジャーは泳ぐこと自体を勧めていません。浅い場所で足を浸けるだけでも十分に効きます。</p>
           </li>
           <li>
             <p class="shopname">Yosemite Westgate Lodge<span class="tag">16:30 チェックイン</span></p>
             <p class="card"><b>7633 State Hwy 120, Groveland, CA 95321</b><span>チェックイン 16:30〜 · オフィスは22:00まで</span><span>22:00以降の到着は要事前連絡＋$25</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?ll=37.81724,-120.05983&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.81724,-120.05983">Maps</a><span class="coord">37.81724, -120.05983</span></span>
             <p class="why"><strong>16:30は締切ではなく下限です。</strong>22:00まで受け付けているので、park で日没まで粘ってから入っても問題ありません。姉妹施設の Buck Meadows Lodge に泊まる場合も、チェックインはこちらのロビーです。</p>
           </li>
           <li>
             <p class="shopname">Lucky Buck Cafe<span class="tag hot">20:00 夕食</span></p>
             <p class="card"><b>7647 State Hwy 120, Groveland, CA 95321</b><span>5〜9月 毎日 7:00–22:00</span><span>(209) 962-5181 · 11/12〜3/14 は休業</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?ll=37.81753,-120.05858&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.81753,-120.05858">Maps</a><span class="coord">37.81753, -120.05858</span></span>
             <p class="why">ロッジ併設のアメリカン・ダイナー。朝食・昼食・夕食すべて。ビーガン／ベジタリアンの選択肢（アボカドトースト、ビーガン・ルーベン、Beyond Burger）もあります。<strong>開店が7:00なので、本番日の朝食には間に合いません。</strong>逆に夜は22:00までなので、park から遅く帰っても滑り込めます。</p>
           </li>
         </ul>
@@ -1178,36 +1203,43 @@ footer a{color:var(--stone-300)}
           <li>
             <p class="shopname">Crane Flat Gas Station &amp; Store<span class="tag hot">Wi-Fi</span></p>
             <p class="card"><b>CA-120 · Big Oak Flat Rd と Tioga Rd の分岐</b><span>ポンプは24時間・カード式／ストアは季節営業</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?ll=37.75267,-119.7973&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.75267,-119.7973">Maps</a><span class="coord">37.75267, -119.7973</span></span>
             <p class="why">Tuolumne Grove の登山口のすぐ横。<strong>無料の Starlink Wi-Fi があります</strong>——ほぼ全域が圏外の園内で、これは覚えておく価値があります。連絡を入れたい、地図を落とし直したい、というときの唯一の窓口になりえます。Tioga Rd を東へ行くなら、ここが最後の給油ポイント。</p>
           </li>
           <li>
             <p class="shopname">Village Store<span class="tag hot">8:30 補給</span></p>
             <p class="card"><b>Yosemite Village</b><span>毎日 8:00–22:00</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?ll=37.74686,-119.58447&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.74686,-119.58447">Maps</a><span class="coord">37.74686, -119.58447</span></span>
             <p class="why">園内で最大の食料品店。<strong>8:20に駐車すれば、もう開いています。</strong>昼のサンドイッチ、行動食、日焼け止めの買い足し、ボトルの給水はここで。夜22:00までなので、Glacier Point から降りてくる前に何か買っておく、という使い方もできます。</p>
           </li>
           <li>
             <p class="shopname">Degnan's Kitchen<span class="tag">デリ</span></p>
             <p class="card"><b>Yosemite Village</b><span>朝食 7:00–11:00 ／ ランチ 11:30–18:00</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?q=Degnan%27s%20Kitchen%2C%20Yosemite%20Village&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=Degnan%27s%20Kitchen%2C%20Yosemite%20Village">Maps</a><span class="coord">名前で検索</span></span>
             <p class="why">デリのサンドイッチ、サラダ、焼き菓子、エスプレッソ。<strong>Village Store で買うより手軽に「ちゃんとした昼」を用意できます。</strong>暖かい季節はロフト席も開きます。</p>
           </li>
           <li>
             <p class="shopname">Base Camp Eatery<span class="tag hot">6:30 開店</span></p>
             <p class="card"><b>9006 Yosemite Lodge Dr, Yosemite Valley, CA 95389</b><span>夏 月〜水 6:30–10:30 ／ 11:00–21:00</span><span>(209) 372-1403 · Starbucks 併設</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?ll=37.74161,-119.6006&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.74161,-119.6006">Maps</a><span class="coord">37.74161, -119.6006</span></span>
             <p class="why"><strong>園内でいちばん早く開く食事処です。</strong>本番日に渓谷へ8:20着なら、ここで熱いものとコーヒーを入れてから歩き出せます。車で食べた朝食のあと、2杯目のコーヒーを飲む場所として。</p>
           </li>
           <li>
             <p class="shopname">Village Grill<span class="tag">昼食</span></p>
             <p class="card"><b>Yosemite Village</b><span>毎日 11:00–18:00</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?q=Village%20Grill%2C%20Yosemite%20Village&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=Village%20Grill%2C%20Yosemite%20Village">Maps</a><span class="coord">名前で検索</span></span>
             <p class="why">バーガー、ホットドッグ、ベジタリアン対応のカウンター。<strong>川辺のピクニックをやめて座って食べたい日はここ。</strong></p>
           </li>
           <li>
             <p class="shopname">Curry Village Pizza Deck<span class="tag">22:00まで</span></p>
             <p class="card"><b>9010 Curry Village Dr, Yosemite National Park</b><span>毎日 11:00–22:00</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?ll=37.73809,-119.57342&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.73809,-119.57342">Maps</a><span class="coord">37.73809, -119.57342</span></span>
             <p class="why"><strong>園内でいちばん遅くまで開いています。</strong>同じ Curry Village の Meadow Grill（11:00–20:00）はタコスとブリトー。渓谷で夕食を取るなら、この2つが現実的な選択肢です。</p>
           </li>
           <li>
             <p class="shopname">Glacier Point Gift Shop &amp; Snack Stand<span class="tag hot">17:00 閉店</span></p>
             <p class="card"><b>Glacier Point</b><span>毎日 9:30–17:00（5〜10月・道路の開通状況による）</span></p>
+            <span class="go"><a class="waze" href="https://waze.com/ul?ll=37.73067,-119.57367&navigate=yes">Waze</a><a href="https://www.google.com/maps/search/?api=1&query=37.73067,-119.57367">Maps</a><span class="coord">37.73067, -119.57367</span></span>
             <p class="why"><strong>ここが今日いちばん重要な営業時間です。</strong>16:45に着けば滑り込めますが、20:05の日没まで粘る計画なら、店はとっくに閉まっています。<em>Glacier Point で日没を待つなら、夕食と行動食は必ず渓谷から持って上がってください。</em>水も同じです。</p>
           </li>
         </ul>

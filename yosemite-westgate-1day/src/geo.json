@@ -1,0 +1,127 @@
+{
+ "irondoor": {
+  "lat": 37.83915,
+  "lon": -120.22981,
+  "name": "Iron Door Saloon"
+ },
+ "rainbowpool": {
+  "lat": 37.82146,
+  "lon": -120.01278,
+  "name": "Rainbow Pool Swimming Hole"
+ },
+ "lodge": {
+  "lat": 37.81724,
+  "lon": -120.05983,
+  "name": "Yosemite Westgate Lodge"
+ },
+ "luckybuck": {
+  "lat": 37.81753,
+  "lon": -120.05858,
+  "name": "Lucky Buck Cafe"
+ },
+ "rimworld": {
+  "lat": 37.82198,
+  "lon": -120.0392,
+  "name": "Rim of the World"
+ },
+ "craneflat": {
+  "lat": 37.75267,
+  "lon": -119.7973,
+  "name": "Crane Flat"
+ },
+ "tuolgrove": {
+  "lat": 37.76976,
+  "lon": -119.80747,
+  "name": "Tuolumne Grove"
+ },
+ "valleyview": {
+  "lat": 37.71728,
+  "lon": -119.66187,
+  "name": "Valley View"
+ },
+ "tunnelview": {
+  "lat": 37.71557,
+  "lon": -119.67689,
+  "name": "Tunnel View"
+ },
+ "bridalveil": {
+  "lat": 37.71681,
+  "lon": -119.64677,
+  "name": "Bridalveil Fall"
+ },
+ "villagestore": {
+  "lat": 37.74686,
+  "lon": -119.58447,
+  "name": "Village Store"
+ },
+ "valleylodge": {
+  "lat": 37.74161,
+  "lon": -119.6006,
+  "name": "Yosemite Valley Lodge"
+ },
+ "curry": {
+  "lat": 37.73809,
+  "lon": -119.57342,
+  "name": "Curry Village"
+ },
+ "happyisles": {
+  "lat": 37.72993,
+  "lon": -119.55905,
+  "name": "Happy Isles"
+ },
+ "swinging": {
+  "lat": 37.73695,
+  "lon": -119.60026,
+  "name": "Swinging Bridge"
+ },
+ "glacierpt": {
+  "lat": 37.73067,
+  "lon": -119.57367,
+  "name": "Glacier Point"
+ },
+ "sentineldome": {
+  "lat": 37.72298,
+  "lon": -119.58433,
+  "name": "Sentinel Dome"
+ },
+ "taftpoint": {
+  "lat": 37.71311,
+  "lon": -119.60461,
+  "name": "Taft Point"
+ },
+ "washburn": {
+  "lat": 37.72062,
+  "lon": -119.57286,
+  "name": "Washburn Point"
+ },
+ "hetchhetchy": {
+  "lat": 37.94745,
+  "lon": -119.78826,
+  "name": "O'Shaughnessy Dam"
+ },
+ "olmsted": {
+  "lat": 37.80928,
+  "lon": -119.48443,
+  "name": "Olmsted Point"
+ },
+ "tenaya": {
+  "lat": 37.8311,
+  "lon": -119.45965,
+  "name": "Tenaya Lake"
+ },
+ "tuolmeadows": {
+  "lat": 37.87414,
+  "lon": -119.35678,
+  "name": "Tuolumne Meadows"
+ },
+ "tiogapass": {
+  "lat": 37.9109,
+  "lon": -119.25788,
+  "name": "Tioga Pass"
+ },
+ "cooksmeadow": {
+  "lat": 37.74506,
+  "lon": -119.59025,
+  "name": "Cook's Meadow"
+ }
+}
