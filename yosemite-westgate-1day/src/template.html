@@ -1,0 +1,1035 @@
+<title>ヨセミテ 1日プラン ─ West Gate Lodge 発</title>
+
+<style>
+/* ───────────── fonts ───────────── */
+@font-face{font-family:Overpass;src:url({{FONT:overpass-400}}) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Overpass;src:url({{FONT:overpass-600}}) format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:Overpass;src:url({{FONT:overpass-900}}) format('woff2');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Plex Mono';src:url({{FONT:plexmono-500}}) format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Plex Mono';src:url({{FONT:plexmono-600}}) format('woff2');font-weight:600;font-style:normal;font-display:swap}
+
+/* ───────────── tokens ─────────────
+   Single committed visual world: granite at altitude, night → alpenglow.
+   The page is a day of changing light; inverting it for a light theme
+   would erase the idea, so color-scheme is pinned to dark.            */
+:root{
+  color-scheme:dark;
+
+  --night:#080B10;         /* granite in shadow, blue-biased black   */
+  --stone-900:#10151D;
+  --stone-800:#171E28;
+  --stone-700:#212B38;
+  --stone-600:#2E3B4B;
+  --stone-400:#66788C;     /* cool grey, biased toward the sky        */
+  --stone-300:#93A3B5;
+  --snow:#E9EEF4;          /* cold alpine white                       */
+
+  --alpen:#FF7A4D;         /* alpenglow on Half Dome — the one accent */
+  --alpen-dim:#B4４F33;
+  --gold:#E8B44C;          /* low sun across granite                  */
+  --ice:#67B6CE;           /* Tenaya Lake — high-country plan only    */
+  --pine:#5B9A78;          /* sequoia bark shade — forest plan only   */
+
+  --f-disp:Overpass,'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic',
+           'Noto Sans JP',system-ui,sans-serif;
+  --f-mono:'Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --rail:1px solid color-mix(in srgb,var(--stone-600) 70%,transparent);
+  --pad:clamp(1.15rem,4.5vw,2.6rem);
+  --maxw:56rem;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--night);
+  color:var(--snow);
+  font-family:var(--f-disp);
+  font-weight:400;
+  font-size:clamp(1rem,.95rem + .3vw,1.075rem);
+  line-height:1.85;
+  -webkit-text-size-adjust:100%;
+  overflow-x:hidden;
+}
+
+/* faint granite grain over everything, fixed so it reads as surface  */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+
+::selection{background:var(--alpen);color:var(--night)}
+a{color:var(--gold);text-underline-offset:.22em;text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--alpen);outline-offset:3px;border-radius:2px}
+img{max-width:100%;display:block}
+
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+
+/* ───────────── shared type ───────────── */
+.eyebrow{
+  font-family:var(--f-mono);font-weight:600;
+  font-size:.68rem;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--stone-400);line-height:1.4;
+}
+.h2{
+  font-family:var(--f-disp);font-weight:900;
+  font-size:clamp(1.75rem,1.2rem + 2.6vw,2.9rem);
+  line-height:1.1;letter-spacing:-.015em;text-wrap:balance;margin:.35em 0 .55em;
+}
+.lede{color:var(--stone-300);max-width:34em}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+section{position:relative}
+.band{padding-block:clamp(3.5rem,10vw,6.5rem)}
+
+/* ───────────── scroll progress ───────────── */
+#prog{
+  position:fixed;top:0;left:0;height:2px;width:100%;z-index:50;
+  transform-origin:0 50%;transform:scaleX(0);
+  background:linear-gradient(90deg,var(--stone-600),var(--alpen) 60%,var(--gold));
+}
+
+/* ───────────── sticky chip nav ───────────── */
+#nav{
+  position:sticky;overflow:hidden;top:0;z-index:40;
+  background:color-mix(in srgb,var(--night) 86%,transparent);
+  backdrop-filter:blur(14px) saturate(140%);
+  border-bottom:var(--rail);
+}
+#nav ul{
+  display:flex;gap:.4rem;list-style:none;margin:0;
+  padding:.55rem var(--pad);overflow-x:auto;scrollbar-width:none;
+  width:100%;max-width:var(--maxw);margin-inline:auto;
+}
+#nav ul::-webkit-scrollbar{display:none}
+#nav::after{
+  content:"";position:absolute;top:0;right:0;bottom:0;width:2.4rem;pointer-events:none;
+  background:linear-gradient(to right,transparent,var(--night));
+}
+@media(min-width:52rem){#nav::after{display:none}}
+#nav a{
+  font-family:var(--f-mono);font-weight:500;font-size:.72rem;letter-spacing:.06em;
+  color:var(--stone-300);text-decoration:none;white-space:nowrap;
+  padding:.4rem .7rem;border:var(--rail);border-radius:999px;
+  transition:color .2s,border-color .2s,background .2s;
+}
+#nav a:hover,#nav a:focus-visible{color:var(--snow);border-color:var(--alpen);background:color-mix(in srgb,var(--alpen) 12%,transparent)}
+
+/* ───────────── hero ───────────── */
+#hero{
+  position:relative;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:flex-end;overflow:hidden;isolation:isolate;
+}
+#hero .shot{
+  position:absolute;inset:0;z-index:-2;
+  background:url({{IMG:hero_tunnelview}}) center 42%/cover no-repeat;
+  filter:saturate(.72) contrast(1.06) brightness(.62);
+  transform:scale(1.08);
+  animation:drift 26s ease-out forwards;
+}
+@keyframes drift{to{transform:scale(1)}}
+#hero .veil{
+  position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(120% 80% at 78% 12%,color-mix(in srgb,var(--alpen) 26%,transparent),transparent 58%),
+    linear-gradient(to bottom,color-mix(in srgb,var(--night) 62%,transparent) 0%,
+                              transparent 26%,
+                              color-mix(in srgb,var(--night) 74%,transparent) 68%,
+                              var(--night) 100%);
+}
+.hero-inner{padding-bottom:clamp(2rem,7vw,4rem);padding-top:6rem}
+#hero .kicker{color:var(--gold);margin-bottom:1.4rem;letter-spacing:.13em;font-size:.63rem}
+#hero h1{
+  font-weight:900;letter-spacing:-.03em;line-height:1.01;
+  font-size:clamp(2.9rem,1.4rem + 9.4vw,6.4rem);
+  margin:0 0 .55rem;text-wrap:balance;
+}
+#hero h1 em{
+  display:block;font-style:normal;color:var(--alpen);
+  text-shadow:0 0 42px color-mix(in srgb,var(--alpen) 55%,transparent);
+}
+#hero .sub{font-size:clamp(1rem,.95rem+.4vw,1.2rem);color:var(--stone-300);max-width:30em;margin:0 0 2rem}
+
+/* vitals strip — the day in five numbers */
+.vitals{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:color-mix(in srgb,var(--stone-600) 60%,transparent);
+  border:var(--rail);border-radius:3px;overflow:hidden;
+}
+@media(min-width:44rem){.vitals{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.vitals div{
+  background:color-mix(in srgb,var(--night) 78%,transparent);
+  padding:.85rem .9rem;display:flex;flex-direction:column;gap:.22rem;
+}
+.vitals dt,.vitals .k{
+  font-family:var(--f-mono);font-size:.6rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--stone-400);
+}
+.vitals .v{
+  font-family:var(--f-mono);font-weight:600;font-variant-numeric:tabular-nums;
+  font-size:clamp(1.05rem,.9rem+.7vw,1.4rem);color:var(--snow);line-height:1.15;
+}
+.vitals .v small{font-size:.62em;color:var(--stone-300);font-weight:500;margin-left:.15em}
+
+.scrollcue{
+  display:flex;align-items:center;gap:.6rem;margin-top:1.6rem;
+  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--stone-400);
+}
+.scrollcue i{
+  width:1.6rem;height:1px;background:var(--stone-400);display:block;
+  animation:pull 2.4s ease-in-out infinite;transform-origin:0 50%;
+}
+@keyframes pull{0%,100%{transform:scaleX(.4);opacity:.4}50%{transform:scaleX(1);opacity:1}}
+
+/* ───────────── generic reveal ───────────── */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+
+/* ───────────── base / corridor ───────────── */
+#base{background:linear-gradient(to bottom,var(--night),var(--stone-900))}
+
+.corridor{
+  margin-top:2.2rem;border:var(--rail);border-radius:3px;
+  background:color-mix(in srgb,var(--night) 55%,transparent);overflow:hidden;
+}
+.corridor .head{
+  display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  padding:.75rem .95rem;border-bottom:var(--rail);
+}
+.corridor .head .t{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone-300)}
+.corridor .head .r{font-family:var(--f-mono);font-size:.68rem;color:var(--stone-400)}
+.stops{list-style:none;margin:0;padding:.3rem 0}
+.stops li{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;
+  gap:.85rem;padding:.62rem .95rem;position:relative;
+}
+.stops li::before{
+  content:"";position:absolute;left:calc(.95rem + 4px);top:0;bottom:0;width:1px;
+  background:linear-gradient(var(--stone-600),var(--stone-600));z-index:0;
+}
+.stops li:first-child::before{top:50%}
+.stops li:last-child::before{bottom:50%}
+.stops .dot{
+  width:9px;height:9px;border-radius:50%;background:var(--stone-600);
+  box-shadow:0 0 0 3px var(--stone-900);position:relative;z-index:1;
+}
+.stops li.key .dot{background:var(--alpen);box-shadow:0 0 0 3px var(--stone-900),0 0 14px var(--alpen)}
+.stops .nm{font-size:.94rem;line-height:1.4}
+.stops .nm b{font-weight:600}
+.stops .nm span{display:block;font-family:var(--f-mono);font-size:.66rem;color:var(--stone-400);letter-spacing:.04em}
+.stops .tm{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:.78rem;color:var(--stone-300);text-align:right;white-space:nowrap}
+
+/* honest-August fact rows */
+.facts{display:grid;gap:1px;background:color-mix(in srgb,var(--stone-600) 55%,transparent);border:var(--rail);border-radius:3px;overflow:hidden;margin-top:2.2rem}
+.facts > div{background:var(--stone-900);padding:1rem 1.05rem;display:grid;gap:.3rem}
+@media(min-width:44rem){.facts{grid-template-columns:1fr 1fr}}
+.facts h3{margin:0;font-size:.95rem;font-weight:600;display:flex;align-items:center;gap:.5rem}
+.facts h3::before{content:"";width:14px;height:2px;background:var(--alpen);flex:none}
+.facts p{margin:0;font-size:.88rem;color:var(--stone-300);line-height:1.75}
+
+/* ───────────── elevation profile ───────────── */
+#profile{background:var(--stone-900);border-block:var(--rail)}
+.chart{margin-top:.7rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+#charthint{display:block}
+@media(min-width:38rem){#charthint{display:none}.chart{margin-top:1.8rem}}
+.chart svg{min-width:34rem;width:100%;height:auto;display:block}
+.chart .grid{stroke:color-mix(in srgb,var(--stone-600) 65%,transparent);stroke-width:1}
+.chart .axis{font-family:var(--f-mono);font-size:9px;fill:var(--stone-400);letter-spacing:.06em}
+.chart .lbl{font-family:var(--f-mono);font-size:9.5px;fill:var(--stone-300);letter-spacing:.03em}
+.chart .peak{fill:var(--alpen);font-weight:600}
+.chart .ln{fill:none;stroke:var(--alpen);stroke-width:2;stroke-linejoin:round;stroke-linecap:round;
+  stroke-dasharray:2400;stroke-dashoffset:2400;transition:stroke-dashoffset 2.6s cubic-bezier(.4,0,.2,1)}
+.chart.in .ln{stroke-dashoffset:0}
+.chart .fillarea{fill:url(#elevfill);opacity:0;transition:opacity 1.2s ease .9s}
+.chart.in .fillarea{opacity:1}
+.chart .node{fill:var(--night);stroke:var(--alpen);stroke-width:1.6}
+
+/* ───────────── the day / timeline ───────────── */
+#day{
+  background:
+    linear-gradient(to bottom,
+      #0A0D14 0%,      /* 04:45 まだ夜        */
+      #131A28 7%,      /* 05:45 薄明          */
+      #2A2432 13%,     /* 06:15 日の出前      */
+      #4A3330 18%,     /* 06:35 朝焼け        */
+      #3A3B44 26%,     /* 08:00 朝            */
+      #2E3844 40%,     /* 正午 高いところの空 */
+      #2B3540 55%,
+      #3D3330 68%,     /* 16:45 午後の金色    */
+      #5B3524 76%,     /* 19:45 アルペングロー*/
+      #2A1E2E 84%,     /* 20:30 薄暮          */
+      #0C1018 92%,     /* 夜                  */
+      #080B10 100%);
+}
+.tl{position:relative;margin-top:2.6rem;padding-left:clamp(1.9rem,7vw,3rem)}
+.tl::before{
+  content:"";position:absolute;left:clamp(.35rem,2.1vw,.7rem);top:.4rem;bottom:2rem;width:1px;
+  background:linear-gradient(to bottom,transparent,var(--stone-600) 6%,var(--stone-600) 88%,transparent);
+}
+
+.stop{position:relative;padding-bottom:clamp(2.4rem,7vw,3.6rem)}
+.stop::before{ /* node */
+  content:"";position:absolute;
+  left:calc(clamp(.35rem,2.1vw,.7rem) - clamp(1.9rem,7vw,3rem) - 4px);
+  top:.62rem;width:9px;height:9px;border-radius:50%;
+  background:var(--stone-700);box-shadow:0 0 0 4px color-mix(in srgb,var(--night) 80%,transparent);
+}
+.stop.hi::before{
+  background:var(--alpen);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--night) 80%,transparent),0 0 18px 2px var(--alpen);
+}
+.stop .clock{
+  display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;
+  font-family:var(--f-mono);font-variant-numeric:tabular-nums;
+}
+.stop .clock .t{font-weight:600;font-size:1.02rem;letter-spacing:.02em;color:var(--snow)}
+.stop.hi .clock .t{color:var(--alpen)}
+.stop .clock .meta{font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--stone-400)}
+.stop h3{
+  font-weight:900;letter-spacing:-.012em;line-height:1.2;
+  font-size:clamp(1.22rem,1.05rem + .85vw,1.65rem);margin:.28rem 0 .5rem;text-wrap:balance;
+}
+.stop p{margin:0 0 .8rem;color:var(--stone-300);font-size:.94rem}
+.stop p strong{color:var(--snow);font-weight:600}
+
+.shotfig{margin:.2rem 0 1rem;border-radius:3px;overflow:hidden;border:var(--rail);background:var(--stone-800)}
+.shotfig img{width:100%;height:auto;filter:saturate(.88) contrast(1.02);transition:transform 1.1s cubic-bezier(.2,.7,.3,1)}
+.shotfig:hover img{transform:scale(1.035)}
+.shotfig figcaption{
+  font-family:var(--f-mono);font-size:.63rem;letter-spacing:.09em;color:var(--stone-400);
+  padding:.5rem .7rem;border-top:var(--rail);display:flex;justify-content:space-between;gap:.8rem;
+}
+
+/* data chips under a stop */
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin:.1rem 0 .2rem}
+.chips span{
+  font-family:var(--f-mono);font-size:.66rem;font-variant-numeric:tabular-nums;
+  letter-spacing:.05em;color:var(--stone-300);
+  border:var(--rail);border-radius:2px;padding:.2rem .48rem;
+  background:color-mix(in srgb,var(--night) 40%,transparent);
+}
+.chips span.acc{color:var(--alpen);border-color:color-mix(in srgb,var(--alpen) 45%,transparent)}
+
+/* inline tip */
+.tip{
+  border-left:2px solid var(--gold);padding:.15rem 0 .15rem .8rem;margin:.2rem 0 .9rem;
+  font-size:.86rem;color:var(--stone-300);line-height:1.7;
+}
+.tip b{color:var(--gold);font-weight:600;font-family:var(--f-mono);font-size:.68rem;
+  letter-spacing:.13em;text-transform:uppercase;display:block;margin-bottom:.1rem}
+
+/* ───────────── alternates ───────────── */
+#alts{background:var(--night)}
+.tabs{display:flex;gap:.4rem;margin:1.8rem 0 1.5rem;flex-wrap:wrap}
+.tabs button{
+  font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;
+  color:var(--stone-300);background:transparent;border:var(--rail);border-radius:999px;
+  padding:.45rem .85rem;cursor:pointer;transition:all .2s;
+}
+.tabs button[aria-selected="true"]{color:var(--night);background:var(--snow);border-color:var(--snow);font-weight:600}
+.tabs button:hover:not([aria-selected="true"]){color:var(--snow);border-color:var(--stone-400)}
+
+.panel[hidden]{display:none}
+.panel{
+  border:var(--rail);border-radius:3px;overflow:hidden;background:var(--stone-900);
+  animation:fadein .45s ease;
+}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.panel .banner{
+  position:relative;display:grid;align-items:end;overflow:hidden;
+  min-height:clamp(10rem,40vw,14rem);
+}
+.panel .banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.8) brightness(.62)}
+.panel .banner .cap{
+  position:relative;padding:2.6rem 1.05rem 1rem;
+  background:linear-gradient(transparent,color-mix(in srgb,var(--stone-900) 74%,transparent) 34%,
+                             color-mix(in srgb,var(--stone-900) 97%,transparent));
+  text-shadow:0 1px 14px rgba(0,0,0,.6);
+}
+.panel .banner h3{margin:0;font-weight:900;font-size:clamp(1.2rem,1rem+1vw,1.6rem);letter-spacing:-.01em}
+.panel .banner p{margin:.2rem 0 0;font-size:.83rem;color:var(--stone-300)}
+.panel .body{padding:1.1rem 1.05rem 1.3rem}
+.mini{list-style:none;margin:0;padding:0;display:grid;gap:.1rem}
+.mini li{display:grid;grid-template-columns:3.6rem 1fr;gap:.8rem;padding:.42rem 0;border-top:var(--rail);align-items:baseline}
+.mini li:first-child{border-top:0}
+.mini .t{font-family:var(--f-mono);font-size:.74rem;font-variant-numeric:tabular-nums;color:var(--stone-400)}
+.mini .d{font-size:.89rem;line-height:1.7}
+.mini .d b{font-weight:600}
+.mini .d em{font-style:normal;font-family:var(--f-mono);font-size:.7rem;color:var(--stone-400);display:block}
+.verdict{
+  margin-top:1.1rem;padding-top:.9rem;border-top:var(--rail);
+  font-size:.86rem;color:var(--stone-300);
+}
+.verdict b{color:var(--snow);font-weight:600}
+
+/* ───────────── packing ───────────── */
+#pack{background:linear-gradient(to bottom,var(--night),var(--stone-900) 60%,var(--night))}
+.packhead{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap}
+.ring{display:flex;align-items:center;gap:.75rem}
+.ring svg{width:46px;height:46px;transform:rotate(-90deg);flex:none}
+.ring circle{fill:none;stroke-width:4}
+.ring .bg{stroke:var(--stone-700)}
+.ring .fg{stroke:var(--alpen);stroke-linecap:round;transition:stroke-dashoffset .45s cubic-bezier(.3,.8,.3,1)}
+.ring .txt{font-family:var(--f-mono);font-size:.72rem;color:var(--stone-300);line-height:1.35}
+.ring .txt b{display:block;color:var(--snow);font-size:.95rem;font-variant-numeric:tabular-nums}
+.reset{
+  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  background:none;border:var(--rail);border-radius:999px;color:var(--stone-400);
+  padding:.35rem .75rem;cursor:pointer;transition:all .2s;
+}
+.reset:hover{color:var(--snow);border-color:var(--stone-400)}
+
+.kits{display:grid;gap:1.2rem;margin-top:2rem}
+@media(min-width:48rem){.kits{grid-template-columns:repeat(3,1fr);align-items:start}}
+.kit{border:var(--rail);border-radius:3px;background:color-mix(in srgb,var(--night) 45%,transparent);overflow:hidden}
+.kit > h3{
+  margin:0;padding:.75rem .9rem;border-bottom:var(--rail);
+  font-family:var(--f-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  display:flex;justify-content:space-between;align-items:center;gap:.6rem;color:var(--stone-300);
+}
+.kit > h3 i{font-style:normal;width:6px;height:6px;border-radius:50%;flex:none}
+.kit.must > h3 i{background:var(--alpen)}
+.kit.comf > h3 i{background:var(--gold)}
+.kit.bonus > h3 i{background:var(--ice)}
+.kit ul{list-style:none;margin:0;padding:.35rem 0}
+.kit li{padding:0}
+.kit label{
+  display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:start;
+  padding:.5rem .9rem;cursor:pointer;font-size:.9rem;line-height:1.6;
+  transition:background .18s;
+}
+.kit label:hover{background:color-mix(in srgb,var(--stone-700) 40%,transparent)}
+.kit input{position:absolute;opacity:0;width:0;height:0}
+.box{
+  width:15px;height:15px;margin-top:.36rem;flex:none;border:1px solid var(--stone-600);
+  border-radius:2px;position:relative;transition:all .2s;
+}
+.box::after{
+  content:"";position:absolute;left:4px;top:.5px;width:4px;height:9px;
+  border:solid var(--night);border-width:0 2px 2px 0;transform:rotate(42deg) scale(0);
+  transition:transform .22s cubic-bezier(.2,1.5,.4,1);
+}
+.kit input:checked + .box{background:var(--alpen);border-color:var(--alpen)}
+.kit input:checked + .box::after{transform:rotate(42deg) scale(1)}
+.kit input:focus-visible + .box{outline:2px solid var(--alpen);outline-offset:3px}
+.kit .txt em{font-style:normal;display:block;font-size:.76rem;color:var(--stone-400);line-height:1.6}
+.kit input:checked ~ .txt{color:var(--stone-400)}
+.kit input:checked ~ .txt strong{text-decoration:line-through;text-decoration-color:var(--stone-600)}
+.kit .txt strong{font-weight:500;color:inherit}
+
+/* ───────────── night-before ───────────── */
+#eve{background:var(--stone-900);border-block:var(--rail)}
+.eve-grid{display:grid;gap:1px;background:color-mix(in srgb,var(--stone-600) 55%,transparent);
+  border:var(--rail);border-radius:3px;overflow:hidden;margin-top:2rem;counter-reset:e}
+@media(min-width:40rem){.eve-grid{grid-template-columns:1fr 1fr}}
+.eve-grid > div{background:var(--stone-900);padding:1rem 1.05rem;display:grid;gap:.25rem;counter-increment:e}
+.eve-grid h3{margin:0;font-size:.94rem;font-weight:600;display:flex;gap:.6rem;align-items:baseline}
+.eve-grid h3::before{
+  content:counter(e,decimal-leading-zero);font-family:var(--f-mono);font-size:.68rem;
+  color:var(--alpen);flex:none;letter-spacing:.06em;
+}
+.eve-grid p{margin:0;padding-left:1.85rem;font-size:.86rem;color:var(--stone-300);line-height:1.75}
+
+/* ───────────── rules ───────────── */
+#rules{position:relative;overflow:hidden;background:var(--night)}
+#rules .bgshot{
+  position:absolute;inset:0;z-index:0;
+  background:url({{IMG:stars}}) center/cover no-repeat;opacity:.2;
+  filter:saturate(.6) brightness(.85);
+}
+#rules .bgshot::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(var(--night),transparent 30%,transparent 62%,var(--night))}
+#rules .wrap{position:relative;z-index:1}
+.rules{display:grid;gap:1rem;margin-top:2rem}
+@media(min-width:44rem){.rules{grid-template-columns:1fr 1fr}}
+.rule{
+  border:var(--rail);border-left:2px solid var(--alpen);border-radius:0 3px 3px 0;
+  padding:1rem 1.1rem;background:color-mix(in srgb,var(--night) 78%,transparent);
+  backdrop-filter:blur(6px);
+}
+.rule .n{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--alpen)}
+.rule h3{margin:.3rem 0 .35rem;font-size:1.02rem;font-weight:600;line-height:1.35}
+.rule p{margin:0;font-size:.87rem;color:var(--stone-300);line-height:1.75}
+
+/* ───────────── footer ───────────── */
+footer{background:var(--night);border-top:var(--rail);padding-block:clamp(2.5rem,7vw,4rem);font-size:.8rem;color:var(--stone-400)}
+footer h3{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.17em;text-transform:uppercase;color:var(--stone-300);margin:0 0 .8rem}
+footer ul{list-style:none;margin:0 0 1.8rem;padding:0;display:grid;gap:.28rem}
+footer li{line-height:1.6}
+footer a{color:var(--stone-300)}
+#credits a{margin-left:.25em}
+.disclaim{border-top:var(--rail);padding-top:1.2rem;line-height:1.8;max-width:44em}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .rv{opacity:1;transform:none}
+  .chart .ln{stroke-dashoffset:0}
+  .chart .fillarea{opacity:1}
+}
+</style>
+
+<div id="prog"></div>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<header id="hero">
+  <div class="shot" role="img" aria-label="トンネルビューから見たヨセミテ渓谷。左にエル・キャピタン、奥にハーフドーム"></div>
+  <div class="veil"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow kicker">Westgate Lodge → Yosemite NP<span style="opacity:.55"> ／ </span>August</p>
+    <h1>西ゲートから、<em>丸1日。</em></h1>
+    <p class="sub">Buck Meadows のロッジは、公園の入口まで 12マイル。この距離を武器にできるのは「暗いうちに出る」人だけです。渓谷の朝いちばんの光から、グレイシャーポイントの日没まで、17時間半の設計図。</p>
+
+    <dl class="vitals">
+      <div><dt class="k">出発</dt><dd class="v" style="margin:0">05:10<small>ロッジ</small></dd></div>
+      <div><dt class="k">日の出 / 日没</dt><dd class="v" style="margin:0">6:10<small>→</small>20:05</dd></div>
+      <div><dt class="k">走行</dt><dd class="v" style="margin:0">約210<small>km</small></dd></div>
+      <div><dt class="k">最高地点</dt><dd class="v" style="margin:0">2,476<small>m</small></dd></div>
+    </dl>
+
+    <p class="scrollcue"><i></i>Scroll</p>
+  </div>
+</header>
+
+<nav id="nav" aria-label="ページ内ナビゲーション">
+  <ul>
+    <li><a href="#base">前提</a></li>
+    <li><a href="#profile">高低差</a></li>
+    <li><a href="#day">1日の流れ</a></li>
+    <li><a href="#alts">別プラン</a></li>
+    <li><a href="#pack">持ち物</a></li>
+    <li><a href="#eve">前夜</a></li>
+    <li><a href="#rules">現地の掟</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════ BASE ════════════════════ -->
+<section id="base" class="band">
+  <div class="wrap">
+    <p class="eyebrow rv">01 — 拠点</p>
+    <h2 class="h2 rv">Buck Meadows は、<br>「早く着ける」宿である。</h2>
+    <p class="lede rv">Yosemite Westgate Lodge（7633 State Hwy 120）は Big Oak Flat 入口ゲートまで約12マイル・20分。園内の宿より安く、園外の他の宿より圧倒的に近い。この20分は、夏のヨセミテでは「駐車場を確保できるかどうか」とほぼ同義です。ロッジ併設の Lucky Buck Cafe は7:00開店なので、朝食は前夜に買っておくのが正解。</p>
+
+    <div class="corridor rv">
+      <div class="head"><span class="t">Highway 120 Corridor</span><span class="r">ロッジからの片道</span></div>
+      <ul class="stops">
+        <li><span class="dot"></span><span class="nm"><b>Yosemite Westgate Lodge</b><span>Buck Meadows · 標高 約930m</span></span><span class="tm">00:00</span></li>
+        <li><span class="dot"></span><span class="nm"><b>Rim of the World 展望台</b><span>Stanislaus NF · トイレあり</span></span><span class="tm">約10分</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Big Oak Flat 入口ゲート</b><span>19km · $35／台（7日間有効）</span></span><span class="tm">約20分</span></li>
+        <li><span class="dot"></span><span class="nm"><b>Crane Flat</b><span>Tioga Rd 分岐 · 園内ガソリンスタンド</span></span><span class="tm">約35分</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Yosemite Valley</b><span>Valley View / Tunnel View / Village</span></span><span class="tm">約1時間10分</span></li>
+        <li><span class="dot"></span><span class="nm"><b>Tenaya Lake</b><span>Tioga Rd · 標高 2,484m</span></span><span class="tm">約1時間15分</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Glacier Point</b><span>標高 2,199m · 渓谷経由</span></span><span class="tm">約2時間10分</span></li>
+      </ul>
+    </div>
+
+    <div class="facts rv">
+      <div>
+        <h3>8月の滝は、期待しない</h3>
+        <p>ヨセミテ滝は8月にはほぼ枯れます（雪解けが終わるため）。年間で水が流れ続けるのは Bridalveil・Vernal・Nevada の3つだけ、それも細め。「滝を見に行く月」ではなく「岩と光と川を楽しむ月」と割り切ると、満足度が跳ね上がります。</p>
+      </div>
+      <div>
+        <h3>渓谷は暑い、高地は快適</h3>
+        <p>渓谷（標高1,200m）は午後に32〜36℃まで上がります。一方 Glacier Point（2,199m）や Tioga Rd 沿い（2,500m前後）は日中24℃前後、夜は10℃台前半。<strong>正午前後を渓谷で過ごす計画は失敗します。</strong>暑い時間は川か木陰、涼しい時間に歩く。</p>
+      </div>
+      <div>
+        <h3>2026年は入園予約が不要</h3>
+        <p>ピーク時間帯の事前予約制は2026年で廃止。予約なしでいつでも入れます。ただし混雑そのものは残るので、実質的な制限は「駐車場の空き」。渓谷の駐車場は夏の週末なら9〜10時で満車になります。</p>
+      </div>
+      <div>
+        <h3>園内はほぼ圏外</h3>
+        <p>渓谷の一部（Yosemite Village 周辺）を除き、携帯はほぼ繋がりません。地図・このページ・音楽は前夜にロッジのWi-Fiでダウンロード。同行者とは「はぐれたら◯時に◯◯」を先に決めておくのが鉄則です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ ELEVATION ════════════════════ -->
+<section id="profile" class="band">
+  <div class="wrap">
+    <p class="eyebrow rv">02 — 高低差</p>
+    <h2 class="h2 rv">1日で 1,500m 登って、降りる。</h2>
+    <p class="lede rv">この日の主役は距離ではなく標高です。930mの宿を出て、渓谷底1,200m、滝の上1,537m、そして夕方に一気に2,476m。上に行くほど気温は下がり、紫外線は強くなり、空気は薄くなります。上着と水は「高さのための装備」だと思ってください。</p>
+
+    <p class="eyebrow" style="margin-top:1.6rem;color:var(--stone-400)" id="charthint">← 横にスクロールできます</p>
+    <div class="chart rv" id="chart">
+      <svg viewBox="0 0 1000 300" role="img" aria-label="1日の標高プロファイル。05:10 に標高930メートルの Buck Meadows を出発し、渓谷底の1,200メートル前後で日中を過ごし、16:45 に Glacier Point 2,199メートル、18:00 に Sentinel Dome 2,476メートルで最高点に達し、22:45 に930メートルへ戻る。">
+        <defs>
+          <linearGradient id="elevfill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FF7A4D" stop-opacity=".34"/>
+            <stop offset="100%" stop-color="#FF7A4D" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <g class="grid">
+          <line x1="20" y1="260" x2="980" y2="260"/>
+          <line x1="20" y1="196" x2="980" y2="196" stroke-dasharray="2 5"/>
+          <line x1="20" y1="132" x2="980" y2="132" stroke-dasharray="2 5"/>
+          <line x1="20" y1="68"  x2="980" y2="68"  stroke-dasharray="2 5"/>
+        </g>
+        <g class="axis">
+          <text x="20" y="273">1,000m</text>
+          <text x="20" y="192">1,500m</text>
+          <text x="20" y="128">2,000m</text>
+          <text x="20" y="64">2,500m</text>
+        </g>
+
+        <path class="fillarea" d="M29,243 L60,171 L104,209 L127,177 L158,209 L198,206 L340,166 L447,208 L580,208 L647,81 L713,46 L824,81 L847,81 L967,243 L967,285 L29,285 Z"/>
+        <polyline class="ln" points="29,243 60,171 104,209 127,177 158,209 198,206 340,166 447,208 580,208 647,81 713,46 824,81 847,81 967,243"/>
+
+        <g class="node">
+          <circle cx="29" cy="243" r="3.2"/><circle cx="198" cy="206" r="3.2"/>
+          <circle cx="340" cy="166" r="3.2"/><circle cx="647" cy="81" r="3.2"/>
+          <circle cx="713" cy="46" r="4.4"/><circle cx="967" cy="243" r="3.2"/>
+        </g>
+
+        <g class="lbl">
+          <text x="29" y="262" text-anchor="start">05:10 ロッジ</text>
+          <text x="198" y="225" text-anchor="middle">08:20 渓谷</text>
+          <text x="340" y="155" text-anchor="middle">11:00 Vernal Fall 上</text>
+          <text x="647" y="70" text-anchor="middle">16:45 Glacier Pt</text>
+          <text x="713" y="30" text-anchor="middle" class="peak">18:00 Sentinel Dome 2,476m</text>
+          <text x="967" y="262" text-anchor="end">22:45 帰着</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ THE DAY ════════════════════ -->
+<section id="day" class="band">
+  <div class="wrap">
+    <p class="eyebrow rv">03 — 本命プラン</p>
+    <h2 class="h2 rv">渓谷の朝、川の昼、<br>断崖の日没。</h2>
+    <p class="lede rv">西ゲート泊の強みを全部使う組み立て。「朝いちばんに人のいない渓谷を取り、暑い時間は川で潰し、夕方に標高を上げて日没を取る」。これが8月のヨセミテで一番おいしい順番です。</p>
+
+    <div class="tl">
+
+      <article class="stop rv">
+        <p class="clock"><span class="t">04:45</span><span class="meta">起床 · 外は真っ暗</span></p>
+        <h3>顔を洗って、車に乗る。</h3>
+        <p>朝食は前夜に買ったものを車内で。Lucky Buck Cafe は7:00開店なので待っていると1日が崩れます。<strong>荷物は前夜に積み終えておく。</strong></p>
+      </article>
+
+      <article class="stop rv">
+        <p class="clock"><span class="t">05:10</span><span class="meta">ロッジ発</span></p>
+        <h3>Hwy 120 を東へ</h3>
+        <p>ヘッドライトの中を走る20分。この時間帯は鹿が本当に出るので、制限速度＋αは厳禁です。途中の <b>Rim of the World 展望台</b>（トイレあり）は、余裕があれば5分だけ。トゥオルミ川の峡谷が夜明け前の青に沈んでいます。</p>
+        <div class="chips"><span>19 km</span><span>約20分</span><span>給油は前夜にGrovelandで</span></div>
+      </article>
+
+      <article class="stop rv hi">
+        <p class="clock"><span class="t">05:45</span><span class="meta">Big Oak Flat 入口ゲート</span></p>
+        <h3>ゲート待ちゼロで入園</h3>
+        <p>$35／台、7日間有効。America the Beautiful パス（$80）があればそれで。<strong>この時間なら列はありません。</strong>9時に来ると同じゲートで20〜40分並びます。ここが西ゲート泊の最大の投資回収ポイント。</p>
+        <div class="chips"><span class="acc">$35 / vehicle</span><span>カード可</span><span>標高 約1,490m</span></div>
+      </article>
+
+      <article class="stop rv hi">
+        <p class="clock"><span class="t">06:35</span><span class="meta">Valley View · 15分</span></p>
+        <h3>マーセド川の水鏡に、エル・キャピタン</h3>
+        <figure class="shotfig">
+          <img src="{{IMG:valleyview}}" alt="Valley View から見た朝のエル・キャピタンとマーセド川" loading="lazy" decoding="async">
+          <figcaption><span>Valley View / Merced River</span><span>1,200 m</span></figcaption>
+        </figure>
+        <p>El Portal Rd 沿いの小さな路肩。8月は水位が下がって流れが止まり、<strong>むしろ鏡のように映り込みます。</strong>朝の斜光が谷の奥から差してくる15分間、ここにいる人は数人。渓谷で最初に見るべき場所です。</p>
+        <div class="tip"><b>Note</b>駐車スペースは10台ほど。西向き（下り）車線側にあるので、通り過ぎたら次のターンアウトでUターン。</div>
+      </article>
+
+      <article class="stop rv hi">
+        <p class="clock"><span class="t">07:00</span><span class="meta">Tunnel View · 20分</span></p>
+        <h3>この1枚のために、早起きした</h3>
+        <p>エル・キャピタン、ブライダルベール滝、ハーフドームが一望に収まる、ヨセミテでもっとも有名な視点。<strong>8時を過ぎると駐車場は満車で路肩待ちの列</strong>ができます。7時ならまだ空いています。朝は逆光気味なので、露出を少し下げて撮ると谷の奥行きが出ます。</p>
+        <div class="chips"><span>Wawona Rd (Hwy 41)</span><span>トイレあり</span><span>渓谷から車で10分の登り</span></div>
+      </article>
+
+      <article class="stop rv">
+        <p class="clock"><span class="t">07:35</span><span class="meta">Bridalveil Fall · 30分</span></p>
+        <h3>8月でも落ちている、数少ない滝</h3>
+        <figure class="shotfig">
+          <img src="{{IMG:bridalveil}}" alt="ブライダルベール滝と、風に流される水しぶき" loading="lazy" decoding="async">
+          <figcaption><span>Bridalveil Fall · 189 m</span><span>往復 0.8 km / 舗装路</span></figcaption>
+        </figure>
+        <p>駐車場から往復800m、舗装された緩い坂。夏は「花嫁のベール」の名の通り細く、風で横に流されます。<strong>朝いちなら展望デッキを独占できます。</strong>足元の岩は年中濡れていて滑るので、展望台から先には出ないこと。</p>
+      </article>
+
+      <article class="stop rv hi">
+        <p class="clock"><span class="t">08:20</span><span class="meta">Yosemite Village · 車をここに置く</span></p>
+        <h3>今日、車を動かすのはこれが最後</h3>
+        <p>渓谷に入ったら Yosemite Village か Curry Village の駐車場に停め、<strong>あとは無料シャトルと自分の足だけで動きます。</strong>渓谷内を車で移動するのは時間の無駄（渋滞と駐車場探しで1回30分は溶ける）。8時台なら確実に停められます。</p>
+        <div class="chips"><span class="acc">無料シャトル 夏季 朝〜夜</span><span>レンタサイクルもあり</span><span>給水所あり</span></div>
+        <div class="tip"><b>ここで補給</b>Village Store で昼のサンドイッチと行動食、ボトルに給水。園内で食べ物を買えるのはほぼここだけで、昼は行列します。</div>
+      </article>
+
+      <article class="stop rv hi">
+        <p class="clock"><span class="t">09:00</span><span class="meta">Mist Trail · 2〜3時間</span></p>
+        <h3>今日いちばんの運動：Vernal Fall</h3>
+        <figure class="shotfig">
+          <img src="{{IMG:merced}}" alt="ヨセミテ渓谷を流れるマーセド川と草地" loading="lazy" decoding="async">
+          <figcaption><span>Merced River · Yosemite Valley</span><span>Happy Isles 起点</span></figcaption>
+        </figure>
+        <p>シャトルで Happy Isles へ。ここから2つの選択肢：</p>
+        <div class="chips">
+          <span class="acc">A｜Footbridge まで 2.6 km ↑120m 約1.5時間</span>
+        </div>
+        <div class="chips">
+          <span class="acc">B｜Vernal Fall 上まで 3.9 km ↑300m 約3時間</span>
+        </div>
+        <p>Bは花崗岩の階段を600段以上登ります。<strong>8月は水量が少ないので、春のようにずぶ濡れにはなりません</strong>——その代わり日陰が少なく暑い。10時までに登り始めること。水は1人1.5L以上を必ず持って。</p>
+        <div class="tip"><b>体力を残したいなら</b>Mist Trail をやめて <b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Cook's Meadow Loop</b>（1.6km・完全平坦）へ。草地の真ん中からハーフドームとヨセミテ滝の岩壁を見上げる、渓谷でいちばん贅沢な散歩道です。夕方の Glacier Point に体力を回せます。</div>
+      </article>
+
+      <article class="stop rv">
+        <p class="clock"><span class="t">12:30</span><span class="meta">昼食 · 川辺</span></p>
+        <h3>Swinging Bridge の河原でピクニック</h3>
+        <p>買っておいたサンドイッチを、マーセド川の砂地で。レストランに並ぶ時間がもったいないし、この時期の川辺のほうが確実に気持ちいい。<strong>食べ終わったゴミは絶対に置いていかない</strong>（熊とカラスが来ます）。</p>
+      </article>
+
+      <article class="stop rv hi">
+        <p class="clock"><span class="t">13:00</span><span class="meta">灼熱の2時間 · 川</span></p>
+        <h3>暑い時間は、歩かずに泳ぐ</h3>
+        <figure class="shotfig">
+          <img src="{{IMG:elcap}}" alt="エル・キャピタンの南東壁を真下から見上げる" loading="lazy" decoding="async">
+          <figcaption><span>El Capitan · 壁の高さ 900 m</span><span>双眼鏡が主役になる時間</span></figcaption>
+        </figure>
+        <p>渓谷は午後に35℃近くまで上がります。ここで無理に歩くと、夕方のいちばんいい時間に電池が切れる。<strong>Sentinel Beach か Swinging Bridge で川に入ってください。</strong>8月のマーセド川は流れが穏やかで水温も高く、1年でいちばん泳ぎやすい時期です。</p>
+        <p>そして<strong>双眼鏡でエル・キャピタンを見上げること。</strong>900mの壁のどこかに必ずクライマーが数パーティ張り付いています。壁で寝るポータレッジが見つかったら、その日は当たりです。</p>
+        <div class="chips"><span>水着 + 速乾タオル</span><span>川用サンダル（石が滑る）</span><span>日陰にタープ代わりの上着</span></div>
+      </article>
+
+      <article class="stop rv">
+        <p class="clock"><span class="t">15:00</span><span class="meta">涼む / 予備時間</span></p>
+        <h3>Ansel Adams Gallery とビジターセンター</h3>
+        <p>体を冷やしつつ、今日見てきた岩がどうやってできたのかを回収する時間。ここは天候や疲労に応じて削っていい枠です。<strong>15:30には必ず車に戻ります。</strong></p>
+      </article>
+
+      <article class="stop rv hi">
+        <p class="clock"><span class="t">16:45</span><span class="meta">Glacier Point · 標高 2,199m</span></p>
+        <h3>ハーフドームと、同じ高さに立つ</h3>
+        <figure class="shotfig">
+          <img src="{{IMG:halfdome_gp}}" alt="グレイシャーポイントから見たハーフドームとヨセミテの高地" loading="lazy" decoding="async">
+          <figcaption><span>Glacier Point → Half Dome</span><span>渓谷底から +1,000 m</span></figcaption>
+        </figure>
+        <p>渓谷から Wawona Rd → Glacier Point Rd で約1時間。<strong>駐車場から100m、舗装路を歩くだけで断崖の縁に出ます。</strong>足元1,000m下にさっきまでいた渓谷、正面にハーフドームの丸い背中。ヨセミテで「労力あたりの絶景」が最大の場所です。ここで上着を出してください。すでに空気が違います。</p>
+        <div class="chips"><span class="acc">2,199 m</span><span>バリアフリー</span><span>トイレ・売店あり</span><span>夕方は 12〜16℃</span></div>
+      </article>
+
+      <article class="stop rv hi">
+        <p class="clock"><span class="t">17:15</span><span class="meta">Sentinel Dome または Taft Point · 各1.5時間</span></p>
+        <h3>日没まで、もうひと歩き</h3>
+        <figure class="shotfig">
+          <img src="{{IMG:taftpoint}}" alt="タフトポイントの断崖と、その先に広がるヨセミテ渓谷" loading="lazy" decoding="async">
+          <figcaption><span>Taft Point · 2,286 m</span><span>柵のない裂け目（Fissures）</span></figcaption>
+        </figure>
+        <p><strong>Sentinel Dome</strong>（往復3.5km・↑120m・2,476m）は、この日の最高地点。丸い花崗岩のドームの上に立つと360度、ハーフドームからシエラの奥まで遮るものがありません。<strong>Taft Point</strong>（往復3.5km・ほぼ平坦）は、岩盤に走る深い裂け目と柵のない絶壁。高所が平気な人にはこちらのほうが刺さります。</p>
+        <div class="tip"><b>安全</b>Taft Point には手すりがほとんどありません。縁から2m以上離れる、写真に夢中で後ずさりしない、子どもからは手を離さない。毎年ここで事故が起きています。</div>
+        <div class="chips"><span>トレイル入口は Glacier Point Rd 沿い</span><span>ヘッドランプ必携</span></div>
+      </article>
+
+      <article class="stop rv hi">
+        <p class="clock"><span class="t">19:45</span><span class="meta">日没 20:05 · 今日の頂点</span></p>
+        <h3>ハーフドームが、ピンクに焼ける</h3>
+        <figure class="shotfig">
+          <img src="{{IMG:gp_sunset}}" alt="夕日に染まるハーフドームをグレイシャーポイントから望む" loading="lazy" decoding="async">
+          <figcaption><span>Alpenglow · 20:00 前後</span><span>Glacier Point</span></figcaption>
+        </figure>
+        <p>日が落ちる直前の10分、花崗岩が赤みを帯びた光を反射して、谷全体が桃色に染まります。<strong>本番は「日没の瞬間」ではなく、その後の15分です。</strong>太陽が消えてから空の色が抜けるまで、粘れるだけ粘ってください。気温は一気に落ちるのでフリース＋ウインドシェル。</p>
+        <div class="chips"><span class="acc">Sunset 20:05</span><span>薄明終了 20:35</span><span>三脚があると化ける</span></div>
+      </article>
+
+      <article class="stop rv">
+        <p class="clock"><span class="t">20:35</span><span class="meta">下山開始 · 約2時間10分</span></p>
+        <h3>夜のシエラを、ゆっくり降りる</h3>
+        <p>Glacier Point Rd → Wawona Rd → Big Oak Flat Rd → Hwy 120。<strong>この帰り道が、このプラン唯一の代償です。</strong>鹿・熊・カーブ・下り勾配。制限速度を守って、眠かったらターンアウトで停まる。運転を交代できるなら必ず交代を。</p>
+        <div class="tip"><b>途中で1回だけ寄るなら</b>Glacier Point Rd の路肩か Washburn Point。8月のヨセミテは月が出ていなければ天の川が肉眼でくっきり見えます。エンジンを切って5分、目を暗闇に慣らしてから空を見上げてください。</div>
+      </article>
+
+      <article class="stop rv">
+        <p class="clock"><span class="t">22:45</span><span class="meta">ロッジ帰着</span></p>
+        <h3>17時間。</h3>
+        <p>Lucky Buck Cafe は21:00で閉まっているので、夕食は昼のうちに買っておいた分で。<strong>車内に食べ物を残さないこと</strong>——駐車場でも熊は来ます。</p>
+        <div class="tip"><b>もう1時間早く寝たいなら</b>Glacier Point をあきらめ、<b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Tunnel View で日没</b>に切り替える。ロッジまで約1時間20分に短縮できて、21:30には戻れます。絶景の格は落ちますが、夜道の運転は半分です。</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ ALTERNATES ════════════════════ -->
+<section id="alts" class="band">
+  <div class="wrap">
+    <p class="eyebrow rv">04 — 別プラン</p>
+    <h2 class="h2 rv">渓谷に行かない、<br>という選択肢もある。</h2>
+    <p class="lede rv">West Gate Lodge から Crane Flat（Tioga Rd の入口）まではわずか35分。実は渓谷より近い。混雑と暑さが苦手なら、こちらのほうが体験の密度は高いかもしれません。</p>
+
+    <div class="tabs" role="tablist" aria-label="別プランの選択">
+      <button role="tab" id="tab-b" aria-controls="p-b" aria-selected="true">高地プラン｜Tioga Road</button>
+      <button role="tab" id="tab-c" aria-controls="p-c" aria-selected="false">ゆったりプラン｜半日</button>
+    </div>
+
+    <div class="panel" id="p-b" role="tabpanel" aria-labelledby="tab-b">
+      <div class="banner">
+        <img src="{{IMG:tenaya}}" alt="ティオガ道沿いのテナヤ湖と周囲の花崗岩ドーム" loading="lazy" decoding="async">
+        <div class="cap">
+          <h3>標高2,600mの、もうひとつのヨセミテ</h3>
+          <p>渓谷の10分の1の人出／気温は10℃低い／8月は泳げる</p>
+        </div>
+      </div>
+      <div class="body">
+        <ul class="mini">
+          <li><span class="t">06:00</span><span class="d"><b>ロッジ発</b> → Crane Flat<em>約35分・園内で最も近い入口エリア</em></span></li>
+          <li><span class="t">06:45</span><span class="d"><b>Tuolumne Grove of Giant Sequoias</b>／往復4km、下り500m・帰りは登り。ジャイアントセコイア約20本と、幹を歩いて抜けられる Tunnel Tree。<em>朝いちなら森を独り占めできる／約1.5〜2時間</em></span></li>
+          <li><span class="t">09:30</span><span class="d">Tioga Rd を東へ。標高がぐんぐん上がる<em>White Wolf、Siesta Lake などの路肩を拾いながら</em></span></li>
+          <li><span class="t">10:15</span><span class="d"><b>Olmsted Point</b>／2,569m。ハーフドームを<strong>裏側から</strong>見る唯一の場所。氷河が磨いた岩盤と、置き去りにされた迷子石。<em>駐車場から数分</em></span></li>
+          <li><span class="t">11:15</span><span class="d"><b>Tenaya Lake</b>／2,484m。白い花崗岩の砂浜と青い水。<strong>8月はヨセミテで泳ぐのに最高のタイミング。</strong><em>水着・タオル必須／2〜3時間滞在してよい</em></span></li>
+          <li><span class="t">14:00</span><span class="d"><b>Tuolumne Meadows</b>／2,627m。シエラ最大級の高山草原。Soda Springs 往復3km（平坦）か、Lembert Dome へ。<em>午後の光が草原に入るのがきれい</em></span></li>
+          <li><span class="t">16:30</span><span class="d"><b>Tioga Pass</b>／3,031m まで往復。カリフォルニアで車で行ける最高所のひとつ。<em>ゲートの外に出ると再入園扱いになる点だけ注意</em></span></li>
+          <li><span class="t">18:30</span><span class="d">折り返し、<b>Olmsted Point で夕日</b><em>逆光のハーフドームがシルエットになる</em></span></li>
+          <li><span class="t">20:40</span><span class="d"><b>ロッジ帰着</b><em>Tuolumne Meadows からロッジまで約2時間</em></span></li>
+        </ul>
+        <p class="verdict"><b>向いているのは：</b>ヨセミテが2回目以上の人／人混みが本気で苦手な人／泳ぎたい人／写真を撮る人。<br><b>注意：</b>2,600m は高山病の入り口です。頭痛・だるさが出たら下ります。水を多めに、動きはゆっくり。日焼けは渓谷の比ではありません。</p>
+      </div>
+    </div>
+
+    <div class="panel" id="p-c" role="tabpanel" aria-labelledby="tab-c" hidden>
+      <div class="banner">
+        <img src="{{IMG:sequoia}}" alt="トゥオルミ・グローブのジャイアントセコイアを見上げる" loading="lazy" decoding="async">
+        <div class="cap">
+          <h3>寝坊しても、ちゃんと満たされる</h3>
+          <p>子連れ・体力温存・到着日や出発日に</p>
+        </div>
+      </div>
+      <div class="body">
+        <ul class="mini">
+          <li><span class="t">07:00</span><span class="d"><b>Lucky Buck Cafe で朝食</b><em>ロッジ併設・7:00開店／7647 State Hwy 120</em></span></li>
+          <li><span class="t">08:15</span><span class="d">ロッジ発<em>ゲートは多少並ぶが、9時前ならまだ軽い</em></span></li>
+          <li><span class="t">09:30</span><span class="d"><b>Valley View → Tunnel View → Bridalveil Fall</b><em>渓谷の三点セット／車を降りて数分ずつ</em></span></li>
+          <li><span class="t">11:00</span><span class="d">Yosemite Village に駐車。シャトルで <b>Cook's Meadow Loop</b>（1.6km・平坦）<em>ヨセミテ滝は8月には枯れている前提で</em></span></li>
+          <li><span class="t">12:30</span><span class="d"><b>川辺でランチ＋水遊び</b>／Swinging Bridge, Sentinel Beach<em>ここが1日の山場でいい</em></span></li>
+          <li><span class="t">15:00</span><span class="d">渓谷を出る<em>渋滞の前に抜けられる</em></span></li>
+          <li><span class="t">16:15</span><span class="d"><b>Tuolumne Grove のセコイア</b>／往復4km<em>時間と体力が残っていれば。夕方の斜光が幹に当たる時間帯</em></span></li>
+          <li><span class="t">18:30</span><span class="d"><b>ロッジ帰着</b> → Lucky Buck Cafe で夕食<em>21:00まで営業</em></span></li>
+        </ul>
+        <p class="verdict"><b>向いているのは：</b>小さい子どもがいる／到着当日で疲れている／翌日も予定がある／とにかく無理をしたくない。<br><b>削ってはいけないもの：</b>Tunnel View と、川に入る時間。この2つさえあれば「ヨセミテに行った」は成立します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ PACKING ════════════════════ -->
+<section id="pack" class="band">
+  <div class="wrap">
+    <p class="eyebrow rv">05 — 持ち物</p>
+    <div class="packhead rv">
+      <h2 class="h2" style="margin-bottom:0">車に積むもの、<br>体に着けるもの。</h2>
+      <div class="ring">
+        <svg viewBox="0 0 44 44" aria-hidden="true">
+          <circle class="bg" cx="22" cy="22" r="19"/>
+          <circle class="fg" id="ringfg" cx="22" cy="22" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"/>
+        </svg>
+        <p class="txt" style="margin:0"><b><span id="ckdone">0</span> / <span id="cktotal">0</span></b>準備できた</p>
+      </div>
+    </div>
+    <p class="lede rv" style="margin-top:1rem">タップでチェックできます（この端末に保存されます）。<strong>「必携」がすべて埋まるまで出発しないでください。</strong>園内はほぼ買い足しがきかず、圏外で調べものもできません。</p>
+    <p style="margin-top:.6rem"><button class="reset" id="reset">チェックをリセット</button></p>
+
+    <div class="kits">
+      <div class="kit must">
+        <h3><span>必携 — これがないと詰む</span><i></i></h3>
+        <ul>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>水 1人2〜3L</strong><em>ボトル2本推奨。渓谷に給水所あり、高地にはない</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>入園料 $35 またはパス</strong><em>カード可。America the Beautiful なら$80で全米1年</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>オフライン地図</strong><em>Googleマップのエリアをダウンロード＋NPSアプリのYosemite。園内は圏外</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>日焼け止め SPF50+</strong><em>2,000m超の紫外線は平地の1.3倍。塗り直し用も</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>つば付き帽子・サングラス</strong><em>花崗岩の照り返しが強い</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>グリップの効く靴</strong><em>Mist Trail の濡れた花崗岩の階段はよく滑る。サンダル不可</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>フリース＋ウインドシェル</strong><em>Glacier Point の日没後は12℃前後。渓谷の35℃と同じ日です</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>ヘッドランプ</strong><em>Sentinel Dome の下山と、夜の駐車場。スマホのライトは電池を食う</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>行動食・昼食</strong><em>前夜に Groveland / Buck Meadows で。園内は高く、昼は行列</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>モバイルバッテリー＋車載充電器</strong><em>圏外だとスマホは電波を探し続けて電池が飛ぶ。機内モードも有効</em></span></label></li>
+        </ul>
+      </div>
+
+      <div class="kit comf">
+        <h3><span>あると全然ちがう</span><i></i></h3>
+        <ul>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>水着＋速乾タオル</strong><em>マーセド川、テナヤ湖。8月は入らないと損</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>川用サンダル</strong><em>川底の石は滑る。裸足は切る</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>双眼鏡</strong><em>エル・キャピタンのクライマー観察。今日いちばん盛り上がる道具</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>電解質タブ・塩分</strong><em>渓谷の午後は本気で暑い。水だけだと足りない</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>クーラーボックス＋氷</strong><em>車内の食料。ただし外から見えないように</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>虫除け</strong><em>夕方の草原（特に Tuolumne Meadows）</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>ゴミ袋・ウェットティッシュ</strong><em>ゴミは持ち帰る。トレイルにゴミ箱はない</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>薄手の長袖</strong><em>日焼け対策としても、夕方の防寒としても</em></span></label></li>
+        </ul>
+      </div>
+
+      <div class="kit bonus">
+        <h3><span>凝るなら</span><i></i></h3>
+        <ul>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>三脚</strong><em>アルペングローと天の川。手持ちでは撮れない</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>NDフィルター／PLフィルター</strong><em>滝の流し撮りと、川面の反射除去</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>赤色ライト</strong><em>星を見るとき、目を暗闇に慣らしたまま手元が見える</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>折りたたみチェア</strong><em>Glacier Point で日没を1時間待つならこれ</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>現金（少額）</strong><em>ほぼカードで足りるが、路肩の売店や募金箱用に</em></span></label></li>
+          <li><label><input type="checkbox"><span class="box"></span><span class="txt"><strong>常備薬・絆創膏・テーピング</strong><em>靴擦れが1日を台無しにする</em></span></label></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ NIGHT BEFORE ════════════════════ -->
+<section id="eve" class="band">
+  <div class="wrap">
+    <p class="eyebrow rv">06 — 前夜</p>
+    <h2 class="h2 rv">この6つを寝る前に。</h2>
+    <p class="lede rv">4:45起きの朝に判断を残さないこと。前夜の30分が、翌日の2時間になります。</p>
+
+    <div class="eve-grid rv">
+      <div><h3>Groveland で満タン給油</h3><p>園内のガソリンスタンドは Crane Flat と Wawona だけ、しかも割高。Groveland のスタンドで入れておく。1日の走行は約210kmです。</p></div>
+      <div><h3>明日の食料と水を買う</h3><p>朝食・昼食・行動食・水。ロッジ周辺か Groveland のストアで。園内で買うと高いうえ、時間を行列で失います。</p></div>
+      <div><h3>オフライン地図をダウンロード</h3><p>ロッジのWi-Fiで、Googleマップの「ヨセミテ周辺」をオフライン保存。NPSアプリの Yosemite もダウンロード。このページもブックマークを。</p></div>
+      <div><h3>Lucky Buck Cafe で夕食</h3><p>ロッジ併設（7647 State Hwy 120）、21:00まで。翌日は22時過ぎに帰るので、まともな夕食はここが最後です。</p></div>
+      <div><h3>車から食べ物を全部出す</h3><p>Buck Meadows の駐車場にも熊は来ます。食料・お菓子・リップクリーム・日焼け止めまで、匂いのあるものは部屋へ。</p></div>
+      <div><h3>荷造りを終えて、4:45にアラーム</h3><p>朝は「顔を洗って車に乗る」だけの状態にしておく。上のチェックリストを埋め切ってから寝てください。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ RULES ════════════════════ -->
+<section id="rules" class="band">
+  <div class="bgshot" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="eyebrow rv">07 — 現地の掟</p>
+    <h2 class="h2 rv">守らないと、<br>高くつく4つ。</h2>
+
+    <div class="rules">
+      <div class="rule rv">
+        <p class="n">Bears</p>
+        <h3>車内に食べ物を「見える形で」置かない</h3>
+        <p>ヨセミテのクマは車をこじ開けます。トレイルヘッドには食料ロッカーがあるので必ずそれを使う。対象は食べ物だけでなく、匂いのあるもの全般（リップ、日焼け止め、空の容器、ゴミ）。違反には罰金があります。</p>
+      </div>
+      <div class="rule rv">
+        <p class="n">No Signal</p>
+        <h3>圏外を前提に動く</h3>
+        <p>渓谷の一部を除き携帯は繋がりません。地図はオフライン保存、集合場所と時刻は先に口頭で決める。緊急時は最寄りのビジターセンターかレンジャーへ。スマホは機内モードにしておくと電池が持ちます。</p>
+      </div>
+      <div class="rule rv">
+        <p class="n">Parking</p>
+        <h3>停めたら、夜まで動かさない</h3>
+        <p>渓谷の駐車場は夏の日中に満車になります。一度出ると戻れないと思ってください。移動は無料シャトルとレンタサイクルで。園内の制限速度（25〜45mph）は厳格に取り締まられています。</p>
+      </div>
+      <div class="rule rv">
+        <p class="n">Heat</p>
+        <h3>正午の渓谷を歩かない</h3>
+        <p>8月の渓谷は35℃前後。この日いちばんのリスクは滑落でも熊でもなく熱中症です。11〜15時は川か木陰か屋内。水は「喉が渇く前に」飲む。頭痛・吐き気が出たら即座に日陰へ。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+  <div class="wrap">
+    <h3>写真クレジット</h3>
+    <ul id="credits">{{CREDITS}}</ul>
+
+    <h3>主な出典</h3>
+    <ul>
+      <li><a href="https://www.nps.gov/yose/planyourvisit/reservations.htm">NPS — Yosemite Entrance Reservations（2026年は予約不要）</a></li>
+      <li><a href="https://www.nps.gov/yose/planyourvisit/conditions.htm">NPS — Current Conditions（出発前に必ず確認）</a></li>
+      <li><a href="https://www.nps.gov/yose/planyourvisit/summer.htm">NPS — Visiting in Summer（8月の滝の水量について）</a></li>
+      <li><a href="https://www.yosemitewestgate.com/">Yosemite Westgate Lodge — 公式</a></li>
+      <li><a href="https://www.luckybuckcafe.com/">Lucky Buck Cafe — 併設レストラン</a></li>
+      <li><a href="https://www.fs.usda.gov/r05/stanislaus/recreation/rim-world-vista">Stanislaus NF — Rim of the World Vista</a></li>
+    </ul>
+
+    <p class="disclaim">時刻・所要時間は8月上旬の平日を想定した目安です。日の出6:10／日没20:05は8月上旬の概算で、月内に約30分ずれます。道路状況・工事・山火事・落石で計画は変わりうるので、出発前夜に NPS の Current Conditions と Tioga Road の状況を必ず確認してください。<br>写真はすべて Wikimedia Commons のパブリックドメイン／クリエイティブ・コモンズ画像です。</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* scroll progress */
+  const prog = document.getElementById('prog');
+  const onScroll = () => {
+    const h = document.documentElement;
+    const p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+    prog.style.transform = 'scaleX(' + p + ')';
+  };
+  addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* reveals */
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -12% 0px', threshold:0.08});
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  /* elevation chart draw */
+  const chart = document.getElementById('chart');
+  new IntersectionObserver((es, o) => {
+    es.forEach(e => { if (e.isIntersecting) { chart.classList.add('in'); o.disconnect(); } });
+  }, {threshold:0.25}).observe(chart);
+
+  /* alternate plan tabs */
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const show = (id) => tabs.forEach(t => {
+    const on = t.id === id;
+    t.setAttribute('aria-selected', on);
+    document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+  });
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => show(t.id));
+    t.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      const n = tabs[(i + d + tabs.length) % tabs.length];
+      n.focus(); show(n.id);
+    });
+  });
+
+  /* packing checklist */
+  const KEY = 'yose-pack-v1';
+  const boxes = [...document.querySelectorAll('.kit input[type=checkbox]')];
+  const ring = document.getElementById('ringfg');
+  const CIRC = 2 * Math.PI * 19;
+  const done = document.getElementById('ckdone');
+  document.getElementById('cktotal').textContent = boxes.length;
+
+  let saved = [];
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch {}
+  boxes.forEach((b, i) => { b.checked = saved.includes(i); });
+
+  const paint = () => {
+    const n = boxes.filter(b => b.checked).length;
+    done.textContent = n;
+    ring.style.strokeDashoffset = CIRC * (1 - n / boxes.length);
+  };
+  const save = () => {
+    try { localStorage.setItem(KEY, JSON.stringify(boxes.map((b,i)=>b.checked?i:-1).filter(i=>i>=0))); } catch {}
+  };
+  boxes.forEach(b => b.addEventListener('change', () => { paint(); save(); }));
+  document.getElementById('reset').addEventListener('click', () => {
+    boxes.forEach(b => b.checked = false); paint(); save();
+  });
+  ring.style.strokeDasharray = CIRC;
+  paint();
+
+  /* smooth in-page nav */
+  document.querySelectorAll('#nav a').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const el = document.querySelector(a.getAttribute('href'));
+      if (!el) return;
+      e.preventDefault();
+      el.scrollIntoView({behavior: rm ? 'auto' : 'smooth', block:'start'});
+    });
+  });
+})();
+</script>
