@@ -65,11 +65,14 @@ body{
   overflow-x:hidden;
 }
 
-/* faint granite grain over everything, fixed so it reads as surface  */
+/* Faint granite grain, fixed so it reads as surface rather than as texture
+   printed on the content. Deliberately NOT mix-blend-mode: a blended
+   full-viewport fixed layer forces the whole scroll into one composited
+   surface, and mobile Safari then drops repaints on long pages — sections
+   below the fold come back blank. Plain low-opacity overlay instead. */
 body::after{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.035;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode:overlay;
 }
 
 ::selection{background:var(--alpen);color:var(--night)}
@@ -107,7 +110,9 @@ section{position:relative}
 /* ───────────── sticky chip nav ───────────── */
 #nav{
   position:sticky;overflow:hidden;top:0;z-index:40;
+  background:#0B0F16;                                    /* solid fallback  */
   background:color-mix(in srgb,var(--night) 86%,transparent);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
   backdrop-filter:blur(14px) saturate(140%);
   border-bottom:var(--rail);
 }
@@ -131,12 +136,15 @@ section{position:relative}
 #nav a:hover,#nav a:focus-visible{color:var(--snow);border-color:var(--alpen);background:color-mix(in srgb,var(--alpen) 12%,transparent)}
 
 /* ───────────── hero ───────────── */
+/* Layers stack with positive z-index, not negative. A negative-z child of an
+   isolated stacking context is a long-standing mobile Safari weak spot — the
+   photo paints behind the page background and the hero comes up empty. */
 #hero{
   position:relative;min-height:100svh;display:flex;flex-direction:column;
   justify-content:flex-end;overflow:hidden;isolation:isolate;
 }
 #hero .shot{
-  position:absolute;inset:0;z-index:-2;
+  position:absolute;inset:0;z-index:0;
   background:url({{IMG:hero_tunnelview}}) center 42%/cover no-repeat;
   filter:saturate(.72) contrast(1.06) brightness(.62);
   transform:scale(1.08);
@@ -144,7 +152,7 @@ section{position:relative}
 }
 @keyframes drift{to{transform:scale(1)}}
 #hero .veil{
-  position:absolute;inset:0;z-index:-1;
+  position:absolute;inset:0;z-index:1;
   background:
     radial-gradient(120% 80% at 78% 12%,color-mix(in srgb,var(--alpen) 26%,transparent),transparent 58%),
     linear-gradient(to bottom,color-mix(in srgb,var(--night) 62%,transparent) 0%,
@@ -152,7 +160,7 @@ section{position:relative}
                               color-mix(in srgb,var(--night) 74%,transparent) 68%,
                               var(--night) 100%);
 }
-.hero-inner{padding-bottom:clamp(2rem,7vw,4rem);padding-top:6rem}
+.hero-inner{position:relative;z-index:2;padding-bottom:clamp(2rem,7vw,4rem);padding-top:6rem}
 #hero .kicker{color:var(--gold);margin-bottom:1.4rem;letter-spacing:.13em;font-size:.63rem}
 #hero h1{
   font-weight:900;letter-spacing:-.03em;line-height:1.01;
@@ -198,8 +206,12 @@ section{position:relative}
 @keyframes pull{0%,100%{transform:scaleX(.4);opacity:.4}50%{transform:scaleX(1);opacity:1}}
 
 /* ───────────── generic reveal ───────────── */
-.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
-.rv.in{opacity:1;transform:none}
+/* Scroll reveals hide content, so they must fail visible, never blank.
+   The hidden state is scoped to html.js — a class JS sets on itself — so if
+   the script never runs, never parses, or the observer never fires, every
+   section is simply already on screen. */
+.rv{opacity:1;transform:none;transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
 
 /* ───────────── base / corridor ───────────── */
 #base{background:linear-gradient(to bottom,var(--night),var(--stone-900))}
@@ -458,10 +470,13 @@ section{position:relative}
 #rules .wrap{position:relative;z-index:1}
 .rules{display:grid;gap:1rem;margin-top:2rem}
 @media(min-width:44rem){.rules{grid-template-columns:1fr 1fr}}
+/* No backdrop-filter here: four large blurred panes over a photo is the most
+   expensive thing on the page, and it buys almost nothing over a solid tint. */
 .rule{
   border:var(--rail);border-left:2px solid var(--alpen);border-radius:0 3px 3px 0;
-  padding:1rem 1.1rem;background:color-mix(in srgb,var(--night) 78%,transparent);
-  backdrop-filter:blur(6px);
+  padding:1rem 1.1rem;
+  background:#0A0E15;
+  background:color-mix(in srgb,var(--night) 88%,transparent);
 }
 .rule .n{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--alpen)}
 .rule h3{margin:.3rem 0 .35rem;font-size:1.02rem;font-weight:600;line-height:1.35}
@@ -476,9 +491,38 @@ footer a{color:var(--stone-300)}
 #credits a{margin-left:.25em}
 .disclaim{border-top:var(--rail);padding-top:1.2rem;line-height:1.8;max-width:44em}
 
+/* ───────────── color-mix() fallback ─────────────
+   Safari gained color-mix() in 16.4. Before that, --rail is invalid at
+   computed-value time, and because every divider, card outline and chip
+   border resolves through it, an older phone loses all of them at once and
+   the page reads as half-drawn. Restate the structural values in rgba.
+   Last in the sheet on purpose: @supports adds no specificity.          */
+@supports not (color:color-mix(in srgb,#000,#fff)){
+  :root{--rail:1px solid rgba(46,59,75,.7)}
+  #nav{background:rgba(8,11,16,.92)}
+  #nav a:hover,#nav a:focus-visible{background:rgba(255,122,77,.12)}
+  #hero .veil{background:linear-gradient(to bottom,rgba(8,11,16,.62),
+    rgba(8,11,16,.12) 26%,rgba(8,11,16,.74) 68%,#080B10)}
+  .vitals{background:rgba(46,59,75,.6)}
+  .vitals div{background:rgba(8,11,16,.78)}
+  .corridor{background:rgba(8,11,16,.55)}
+  .facts,.eve-grid{background:rgba(46,59,75,.55)}
+  .chips span{background:rgba(8,11,16,.4)}
+  .chips span.acc{border-color:rgba(255,122,77,.45)}
+  .stop::before{box-shadow:0 0 0 4px rgba(8,11,16,.8)}
+  .stop.hi::before{box-shadow:0 0 0 4px rgba(8,11,16,.8),0 0 18px 2px var(--alpen)}
+  .tl::before{background:linear-gradient(to bottom,transparent,#2E3B4B 6%,#2E3B4B 88%,transparent)}
+  .chart .grid{stroke:rgba(46,59,75,.65)}
+  .kit{background:rgba(8,11,16,.45)}
+  .kit label:hover{background:rgba(46,59,75,.4)}
+  .panel .banner .cap{background:linear-gradient(transparent,rgba(8,11,16,.72) 38%,rgba(16,21,29,.97))}
+  .rule{background:rgba(10,14,21,.88)}
+  .shotfig figcaption,.corridor .head{border-color:rgba(46,59,75,.7)}
+}
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
-  .rv{opacity:1;transform:none}
+  html.js .rv:not(.in){opacity:1;transform:none}
   .chart .ln{stroke-dashoffset:0}
   .chart .fillarea{opacity:1}
 }
@@ -967,6 +1011,18 @@ footer a{color:var(--stone-300)}
 <script>
 (() => {
   const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealables = [...document.querySelectorAll('.rv')];
+  const revealAll = () => revealables.forEach(el => el.classList.add('in'));
+
+  /* Opt into the hidden-until-revealed state only now that the script is
+     running, and only if the browser can actually undo it. */
+  const canObserve = 'IntersectionObserver' in window;
+  if (canObserve && !rm) document.documentElement.classList.add('js');
+
+  /* Belt and braces: whatever happens to the observer, everything is on
+     screen within 3s of load. A missed reveal is a blank section. */
+  const failsafe = setTimeout(revealAll, 3000);
+  addEventListener('pageshow', () => setTimeout(revealAll, 1200));
 
   /* scroll progress */
   const prog = document.getElementById('prog');
@@ -978,17 +1034,32 @@ footer a{color:var(--stone-300)}
   addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 
-  /* reveals */
-  const io = new IntersectionObserver((es) => {
-    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {rootMargin:'0px 0px -12% 0px', threshold:0.08});
-  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  /* reveals — threshold 0 so a block taller than the viewport still counts as
+     intersecting the moment its first pixel arrives, and a positive bottom
+     rootMargin so blocks resolve slightly before they are scrolled to. */
+  if (canObserve) {
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, {rootMargin:'120px 0px 120px 0px', threshold:0});
+    revealables.forEach(el => io.observe(el));
+  } else {
+    clearTimeout(failsafe);
+    revealAll();
+  }
 
   /* elevation chart draw */
   const chart = document.getElementById('chart');
-  new IntersectionObserver((es, o) => {
-    es.forEach(e => { if (e.isIntersecting) { chart.classList.add('in'); o.disconnect(); } });
-  }, {threshold:0.25}).observe(chart);
+  if (canObserve) {
+    new IntersectionObserver((es, o) => {
+      es.forEach(e => { if (e.isIntersecting) { chart.classList.add('in'); o.disconnect(); } });
+    }, {threshold:0.1}).observe(chart);
+  } else {
+    chart.classList.add('in');
+  }
 
   /* alternate plan tabs */
   const tabs = [...document.querySelectorAll('[role="tab"]')];
