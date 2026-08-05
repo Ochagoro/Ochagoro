@@ -458,6 +458,45 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
 }
 .verdict b{color:var(--snow);font-weight:600}
 
+/* ───────────── directory ─────────────
+   Addresses, hours and phone numbers are the reason this section exists, so
+   they get the mono face and their own line rather than being buried in prose. */
+#shops{background:var(--stone-900);border-block:var(--rail)}
+.dir{display:grid;gap:1.3rem;margin-top:2.2rem}
+.dirgroup{
+  border:var(--rail);border-radius:3px;overflow:hidden;
+  background:#0A0E15;
+  background:color-mix(in srgb,var(--night) 45%,transparent);
+}
+.dirgroup > h3{
+  margin:0;padding:.75rem .9rem;border-bottom:var(--rail);
+  font-family:var(--f-mono);font-weight:600;font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--stone-300);
+  display:flex;justify-content:space-between;align-items:center;gap:.6rem;
+}
+.dirgroup > h3 i{font-style:normal;width:6px;height:6px;border-radius:50%;flex:none;background:var(--alpen)}
+.dirgroup ul{margin:0;padding:0}
+.dirgroup li{padding:.9rem .95rem;border-top:var(--rail);display:grid;gap:.35rem}
+.dirgroup li:first-child{border-top:0}
+.shopname{
+  font-weight:600;font-size:.98rem;line-height:1.4;
+  display:flex;gap:.5rem;align-items:baseline;flex-wrap:wrap;
+}
+.shopname .tag{
+  font-family:var(--f-mono);font-weight:500;font-size:.6rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--stone-400);border:var(--rail);border-radius:2px;
+  padding:.12rem .38rem;flex:none;
+}
+.shopname .tag.hot{color:var(--alpen);border-color:color-mix(in srgb,var(--alpen) 45%,transparent)}
+.card{
+  font-family:var(--f-mono);font-size:.7rem;font-variant-numeric:tabular-nums;
+  color:var(--stone-400);line-height:1.75;display:grid;gap:.05rem;
+}
+.card b{color:var(--stone-300);font-weight:500}
+.why{font-size:.87rem;color:var(--stone-300);line-height:1.75}
+.why strong{color:var(--snow);font-weight:600}
+.why em{font-style:normal;color:var(--gold)}
+
 /* ───────────── packing ───────────── */
 #pack{background:linear-gradient(to bottom,var(--night),var(--stone-900) 60%,var(--night))}
 .packhead{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap}
@@ -635,6 +674,7 @@ footer a{color:var(--stone-300)}
     <li><a href="#profile">高低差</a></li>
     <li><a href="#day">1日の流れ</a></li>
     <li><a href="#alts">別プラン</a></li>
+    <li><a href="#shops">お店</a></li>
     <li><a href="#pack">持ち物</a></li>
     <li><a href="#eve">前夜</a></li>
     <li><a href="#rules">現地の掟</a></li>
@@ -661,10 +701,10 @@ footer a{color:var(--stone-300)}
         <li><span class="dot"></span><span class="nm"><b>Mountain View 発</b><span>CA-237 経由で I-680 北へ</span></span><span class="tm">11:00</span></li>
         <li><span class="dot"></span><span class="nm"><b>Livermore / I-580</b><span>渋滞の可能性があるのはここまで</span></span><span class="tm">11:50</span></li>
         <li><span class="dot"></span><span class="nm"><b>Manteca で CA-120 へ</b><span>I-205 から分岐。ここから一本道</span></span><span class="tm">12:20</span></li>
-        <li class="key"><span class="dot"></span><span class="nm"><b>Oakdale で昼食</b><span>Hwy 120 沿い・最後のまとまった町／45分</span></span><span class="tm">12:50</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Backwoods Burgers で昼食</b><span>1214 W F St, Oakdale（Hwy 120 の真上）／45分</span></span><span class="tm">12:50</span></li>
         <li><span class="dot"></span><span class="nm"><b>Moccasin → New Priest Grade</b><span>本線を使う。Old Priest Grade は勾配17%</span></span><span class="tm">14:00</span></li>
-        <li class="key"><span class="dot"></span><span class="nm"><b>Groveland で明日の分を買う</b><span>食料・水・氷／30分。Iron Door Saloon を覗くなら+15分</span></span><span class="tm">14:15</span></li>
-        <li class="key"><span class="dot"></span><span class="nm"><b>Rainbow Pool で泳ぐ</b><span>South Fork Tuolumne · $10／台・トイレあり</span></span><span class="tm">15:05</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Mar-Val Food Stores</b><span>19000 Main St, Groveland ／ 明日の食料・水・氷。7:00–22:30</span></span><span class="tm">14:15</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Rainbow Pool Day Use Area</b><span>Groveland から東へ15マイル · $10／台・トイレあり</span></span><span class="tm">15:05</span></li>
         <li class="key"><span class="dot"></span><span class="nm"><b>Yosemite Westgate Lodge</b><span>チェックイン開始 16:30。オフィスは22:00まで</span></span><span class="tm">16:30</span></li>
         <li class="key"><span class="dot"></span><span class="nm"><b>Big Oak Flat 入口ゲート</b><span>$35／台。夕方は出る車のほうが多い</span></span><span class="tm">17:15</span></li>
       </ul>
@@ -717,12 +757,12 @@ footer a{color:var(--stone-300)}
       </div>
       <div class="body">
         <ul class="mini">
-          <li><span class="t">15:05</span><span class="d"><b>Rainbow Pool</b>で3時間半の運転を流す／$10・台<em>飛び込みは絶対にしない。毎年ここで死者が出ている</em></span></li>
+          <li><span class="t">15:05</span><span class="d"><b>Rainbow Pool</b> で3時間半の運転を流す／$10・台<em>飛び込みは絶対にしない。毎年ここで死者が出ている</em></span></li>
           <li><span class="t">16:30</span><span class="d"><b>チェックイン</b>して荷物を置く<em>食べ物を車に残さない</em></span></li>
           <li><span class="t">17:35</span><span class="d"><b>Crane Flat の登山口</b>。ゲートから20分<em>この時間なら駐車場は空いている</em></span></li>
           <li><span class="t">17:45</span><span class="d"><b>セコイアの森へ下る</b>／往復4km、行きは下り500m・<strong>帰りがその登り返し</strong>。約20本のジャイアントセコイアと、幹を歩いて抜けられる Tunnel Tree。<strong>低い日射しが赤い樹皮に当たる、いちばんいい時間帯です。</strong><em>1.5〜2時間／水とヘッドランプ</em></span></li>
           <li><span class="t">19:20</span><span class="d">Crane Flat 発 → ロッジへ<em>約35分。日没は帰り道の車窓で</em></span></li>
-          <li><span class="t">20:00</span><span class="d"><b>Lucky Buck Cafe で夕食</b>／ロッジ併設<em>21:00まで。明日の夜は22時過ぎに帰るので、まともな夕食は今夜が最後</em></span></li>
+          <li><span class="t">20:00</span><span class="d"><b>Lucky Buck Cafe で夕食</b>／7647 State Hwy 120・ロッジ併設<em>5〜9月は22:00まで。(209) 962-5181</em></span></li>
           <li><span class="t">20:45</span><span class="d"><b>明日の準備</b>（下の「前夜」の6項目）<em>荷造りを終えてから寝る</em></span></li>
           <li><span class="t">21:30</span><span class="d"><b>就寝</b><em>4:45起き。7時間眠れる</em></span></li>
         </ul>
@@ -932,7 +972,7 @@ footer a{color:var(--stone-300)}
         <h3>今日、車を動かすのはこれが最後</h3>
         <p>渓谷に入ったら Yosemite Village か Curry Village の駐車場に停め、<strong>あとは無料シャトルと自分の足だけで動きます。</strong>渓谷内を車で移動するのは時間の無駄（渋滞と駐車場探しで1回30分は溶ける）。8時台なら確実に停められます。</p>
         <div class="chips"><span class="acc">無料シャトル 夏季 朝〜夜</span><span>レンタサイクルもあり</span><span>給水所あり</span></div>
-        <div class="tip"><b>ここで補給</b>Village Store で昼のサンドイッチと行動食、ボトルに給水。園内で食べ物を買えるのはほぼここだけで、昼は行列します。</div>
+        <div class="tip"><b>ここで補給</b><b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Village Store</b>（8:00–22:00）で昼のサンドイッチと行動食、ボトルに給水。デリで済ませるなら <b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Degnan's Kitchen</b>（朝食7:00–11:00）。熱いものとコーヒーが欲しければ <b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Base Camp Eatery</b>（6:30開店・Starbucks併設）。園内で食べ物を買えるのはこの一帯だけで、昼は行列します。</div>
       </article>
 
       <article class="stop rv hi">
@@ -987,7 +1027,8 @@ footer a{color:var(--stone-300)}
           <figcaption><span>Glacier Point → Half Dome</span><span>渓谷底から +1,000 m</span></figcaption>
         </figure>
         <p>渓谷から Wawona Rd → Glacier Point Rd で約1時間。<strong>駐車場から100m、舗装路を歩くだけで断崖の縁に出ます。</strong>足元1,000m下にさっきまでいた渓谷、正面にハーフドームの丸い背中。ヨセミテで「労力あたりの絶景」が最大の場所です。ここで上着を出してください。すでに空気が違います。</p>
-        <div class="chips"><span class="acc">2,199 m</span><span>バリアフリー</span><span>トイレ・売店あり</span><span>夕方は 12〜16℃</span></div>
+        <div class="chips"><span class="acc">2,199 m</span><span>バリアフリー</span><span>売店は 9:30–17:00</span><span>夕方は 12〜16℃</span></div>
+        <div class="tip"><b>売店は17:00で閉まる</b>Glacier Point Gift Shop &amp; Snack Stand は9:30–17:00。16:45着ならぎりぎり間に合いますが、<b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">20:05の日没まで粘るなら夕食・行動食・水は渓谷から持って上がるのが前提です。</b></div>
       </article>
 
       <article class="stop rv hi">
@@ -1023,8 +1064,8 @@ footer a{color:var(--stone-300)}
       <article class="stop rv">
         <p class="clock"><span class="t">22:45</span><span class="meta">ロッジ帰着</span></p>
         <h3>17時間。</h3>
-        <p>Lucky Buck Cafe は21:00で閉まっているので、夕食は昼のうちに買っておいた分で。<strong>車内に食べ物を残さないこと</strong>——駐車場でも熊は来ます。</p>
-        <div class="tip"><b>もう1時間早く寝たいなら</b>Glacier Point をあきらめ、<b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Tunnel View で日没</b>に切り替える。ロッジまで約1時間20分に短縮できて、21:30には戻れます。絶景の格は落ちますが、夜道の運転は半分です。</div>
+        <p>Lucky Buck Cafe は22:00で閉まるので、この時間だと間に合いません。夕食は昼のうちに買っておいた分で。<strong>車内に食べ物を残さないこと</strong>——駐車場でも熊は来ます。</p>
+        <div class="tip"><b>もう1時間早く寝たいなら</b>Glacier Point をあきらめ、<b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Tunnel View で日没</b>に切り替える。ロッジまで約1時間20分に短縮できて21:30に戻れるので、<b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Lucky Buck Cafe の夕食（22:00まで）に間に合います。</b>絶景の格は落ちますが、夜道の運転は半分で、温かい夕食が付きます。</div>
       </article>
 
     </div>
@@ -1096,10 +1137,103 @@ footer a{color:var(--stone-300)}
   </div>
 </section>
 
+<!-- ════════════════════ DIRECTORY ════════════════════ -->
+<section id="shops" class="band">
+  <div class="wrap">
+    <p class="eyebrow rv">06 — お店</p>
+    <h2 class="h2 rv">住所と営業時間、全部。</h2>
+    <p class="lede rv">園内はほぼ圏外なので、現地で調べ直せません。<strong>電話番号まで含めて先に持っておいてください。</strong>営業時間は変わるので、決め打ちにする店だけ前夜に一本電話するのが確実です。</p>
+
+    <div class="dir">
+      <div class="dirgroup rv">
+        <h3><span>道中 — Mountain View から ロッジまで</span><i></i></h3>
+        <ul>
+          <li>
+            <p class="shopname">Backwoods Burgers<span class="tag hot">12:50 昼食</span></p>
+            <p class="card"><b>1214 W F St, Oakdale, CA 95361</b><span>水 11:00–20:00（金土は21:00まで）</span><span>(209) 322-2953</span></p>
+            <p class="why">Oakdale 市内の Hwy 120 は F Street という名前で走っていて、この店はその真上。<strong>ヨセミテからの帰り客の定番で、山道に入る前の最後のまともな食事です。</strong>Tumbleweed（ベーコン＋BBQソース＋オニオンヘイストロー）が看板。<em>候補：Sno White Drive In / Taqueria Jarro Viejo / Bistro 120 — 名前だけで営業時間は未確認。</em></p>
+          </li>
+          <li>
+            <p class="shopname">Oakdale で給油<span class="tag">13:30</span></p>
+            <p class="card"><b>Hwy 120（F St）沿いに複数</b><span>山に入る前に満タンにする</span></p>
+            <p class="why">この先、園内の Crane Flat と Wawona 以外にスタンドはなく、どちらも割高。<strong>Oakdale で入れておくのがいちばん安く、氷を積むにも都合がいい順番です。</strong></p>
+          </li>
+          <li>
+            <p class="shopname">Mar-Val Food Stores<span class="tag hot">14:15 明日の食料</span></p>
+            <p class="card"><b>19000 Main St（State Hwy 120）, Groveland, CA 95321</b><span>毎日 7:00–22:30</span><span>(209) 962-7452</span></p>
+            <p class="why"><strong>明日の朝食・昼のサンドイッチ・水・氷・行動食を、ここで全部買います。</strong>ここから東に、まともな食料品店はもうありません。60年以上この地域でやっている店で、小さな町のスーパーとしては品揃えが良いほうです。夜22:30までなので、前夜の買い足しにも使えます。</p>
+          </li>
+          <li>
+            <p class="shopname">Iron Door Saloon<span class="tag">15分の寄り道</span></p>
+            <p class="card"><b>18761 Main St, Groveland, CA 95321</b><span>営業時間は未確認（昼から開いている）</span></p>
+            <p class="why">1850年代の雑貨店を起源とする酒場で、<strong>「カリフォルニア最古の営業中サルーン」を称しています</strong>——ただしこの主張は検証が難しく、酒場になったのは1896年という説もあります。重い鉄扉と当時のままの内装は本物で、買い物のついでに15分覗く価値はあります。</p>
+          </li>
+          <li>
+            <p class="shopname">Rainbow Pool Day Use Area<span class="tag hot">15:05 水遊び</span></p>
+            <p class="card"><b>State Hwy 120 · Groveland から東へ約15マイル</b><span>5〜9月 · $10／台</span><span>トイレあり／飲料水なし・ゴミは持ち帰り</span></p>
+            <p class="why">South Fork Tuolumne River の天然プール。駐車場から数分で水辺に降りられます。3時間半の運転を流すのに最適。<strong>ただし飛び込みは絶対にしないでください。</strong>この滝では毎年のように死者が出ていて、レンジャーは泳ぐこと自体を勧めていません。浅い場所で足を浸けるだけでも十分に効きます。</p>
+          </li>
+          <li>
+            <p class="shopname">Yosemite Westgate Lodge<span class="tag">16:30 チェックイン</span></p>
+            <p class="card"><b>7633 State Hwy 120, Groveland, CA 95321</b><span>チェックイン 16:30〜 · オフィスは22:00まで</span><span>22:00以降の到着は要事前連絡＋$25</span></p>
+            <p class="why"><strong>16:30は締切ではなく下限です。</strong>22:00まで受け付けているので、park で日没まで粘ってから入っても問題ありません。姉妹施設の Buck Meadows Lodge に泊まる場合も、チェックインはこちらのロビーです。</p>
+          </li>
+          <li>
+            <p class="shopname">Lucky Buck Cafe<span class="tag hot">20:00 夕食</span></p>
+            <p class="card"><b>7647 State Hwy 120, Groveland, CA 95321</b><span>5〜9月 毎日 7:00–22:00</span><span>(209) 962-5181 · 11/12〜3/14 は休業</span></p>
+            <p class="why">ロッジ併設のアメリカン・ダイナー。朝食・昼食・夕食すべて。ビーガン／ベジタリアンの選択肢（アボカドトースト、ビーガン・ルーベン、Beyond Burger）もあります。<strong>開店が7:00なので、本番日の朝食には間に合いません。</strong>逆に夜は22:00までなので、park から遅く帰っても滑り込めます。</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dirgroup rv">
+        <h3><span>園内 — 買えるのはここだけ</span><i></i></h3>
+        <ul>
+          <li>
+            <p class="shopname">Crane Flat Gas Station &amp; Store<span class="tag hot">Wi-Fi</span></p>
+            <p class="card"><b>CA-120 · Big Oak Flat Rd と Tioga Rd の分岐</b><span>ポンプは24時間・カード式／ストアは季節営業</span></p>
+            <p class="why">Tuolumne Grove の登山口のすぐ横。<strong>無料の Starlink Wi-Fi があります</strong>——ほぼ全域が圏外の園内で、これは覚えておく価値があります。連絡を入れたい、地図を落とし直したい、というときの唯一の窓口になりえます。Tioga Rd を東へ行くなら、ここが最後の給油ポイント。</p>
+          </li>
+          <li>
+            <p class="shopname">Village Store<span class="tag hot">8:30 補給</span></p>
+            <p class="card"><b>Yosemite Village</b><span>毎日 8:00–22:00</span></p>
+            <p class="why">園内で最大の食料品店。<strong>8:20に駐車すれば、もう開いています。</strong>昼のサンドイッチ、行動食、日焼け止めの買い足し、ボトルの給水はここで。夜22:00までなので、Glacier Point から降りてくる前に何か買っておく、という使い方もできます。</p>
+          </li>
+          <li>
+            <p class="shopname">Degnan's Kitchen<span class="tag">デリ</span></p>
+            <p class="card"><b>Yosemite Village</b><span>朝食 7:00–11:00 ／ ランチ 11:30–18:00</span></p>
+            <p class="why">デリのサンドイッチ、サラダ、焼き菓子、エスプレッソ。<strong>Village Store で買うより手軽に「ちゃんとした昼」を用意できます。</strong>暖かい季節はロフト席も開きます。</p>
+          </li>
+          <li>
+            <p class="shopname">Base Camp Eatery<span class="tag hot">6:30 開店</span></p>
+            <p class="card"><b>9006 Yosemite Lodge Dr, Yosemite Valley, CA 95389</b><span>夏 月〜水 6:30–10:30 ／ 11:00–21:00</span><span>(209) 372-1403 · Starbucks 併設</span></p>
+            <p class="why"><strong>園内でいちばん早く開く食事処です。</strong>本番日に渓谷へ8:20着なら、ここで熱いものとコーヒーを入れてから歩き出せます。車で食べた朝食のあと、2杯目のコーヒーを飲む場所として。</p>
+          </li>
+          <li>
+            <p class="shopname">Village Grill<span class="tag">昼食</span></p>
+            <p class="card"><b>Yosemite Village</b><span>毎日 11:00–18:00</span></p>
+            <p class="why">バーガー、ホットドッグ、ベジタリアン対応のカウンター。<strong>川辺のピクニックをやめて座って食べたい日はここ。</strong></p>
+          </li>
+          <li>
+            <p class="shopname">Curry Village Pizza Deck<span class="tag">22:00まで</span></p>
+            <p class="card"><b>9010 Curry Village Dr, Yosemite National Park</b><span>毎日 11:00–22:00</span></p>
+            <p class="why"><strong>園内でいちばん遅くまで開いています。</strong>同じ Curry Village の Meadow Grill（11:00–20:00）はタコスとブリトー。渓谷で夕食を取るなら、この2つが現実的な選択肢です。</p>
+          </li>
+          <li>
+            <p class="shopname">Glacier Point Gift Shop &amp; Snack Stand<span class="tag hot">17:00 閉店</span></p>
+            <p class="card"><b>Glacier Point</b><span>毎日 9:30–17:00（5〜10月・道路の開通状況による）</span></p>
+            <p class="why"><strong>ここが今日いちばん重要な営業時間です。</strong>16:45に着けば滑り込めますが、20:05の日没まで粘る計画なら、店はとっくに閉まっています。<em>Glacier Point で日没を待つなら、夕食と行動食は必ず渓谷から持って上がってください。</em>水も同じです。</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ════════════════════ PACKING ════════════════════ -->
 <section id="pack" class="band">
   <div class="wrap">
-    <p class="eyebrow rv">06 — 持ち物</p>
+    <p class="eyebrow rv">07 — 持ち物</p>
     <div class="packhead rv">
       <h2 class="h2 tight">車に積むもの、<br>体に着けるもの。</h2>
       <div class="ring">
@@ -1163,15 +1297,15 @@ footer a{color:var(--stone-300)}
 <!-- ════════════════════ NIGHT BEFORE ════════════════════ -->
 <section id="eve" class="band">
   <div class="wrap">
-    <p class="eyebrow rv">07 — 前夜</p>
+    <p class="eyebrow rv">08 — 前夜</p>
     <h2 class="h2 rv">この6つを寝る前に。</h2>
     <p class="lede rv">4:45起きの朝に判断を残さないこと。前夜の30分が、翌日の2時間になります。</p>
 
     <div class="eve-grid rv">
-      <div><h3>Groveland で満タン給油</h3><p>園内のガソリンスタンドは Crane Flat と Wawona だけ、しかも割高。Groveland のスタンドで入れておく。1日の走行は約210kmです。</p></div>
-      <div><h3>明日の食料と水を買う</h3><p>朝食・昼食・行動食・水。ロッジ周辺か Groveland のストアで。園内で買うと高いうえ、時間を行列で失います。</p></div>
+      <div><h3>給油は Oakdale で済ませる</h3><p>園内のスタンドは Crane Flat と Wawona だけで割高、Groveland も安くはありません。Hwy 120 沿いの Oakdale で満タンに。1日の走行は約210kmです。</p></div>
+      <div><h3>明日の食料と水を買う</h3><p>朝食・昼食・行動食・水・氷。<b>Mar-Val Food Stores</b>（19000 Main St, Groveland／7:00–22:30）で。園内で買うと高いうえ、時間を行列で失います。</p></div>
       <div><h3>オフライン地図をダウンロード</h3><p>ロッジのWi-Fiで、Googleマップの「ヨセミテ周辺」をオフライン保存。NPSアプリの Yosemite もダウンロード。このページもブックマークを。</p></div>
-      <div><h3>Lucky Buck Cafe で夕食</h3><p>ロッジ併設（7647 State Hwy 120）、21:00まで。翌日は22時過ぎに帰るので、まともな夕食はここが最後です。</p></div>
+      <div><h3>Lucky Buck Cafe で夕食</h3><p>ロッジ併設（7647 State Hwy 120）、5〜9月は22:00まで／(209) 962-5181。翌日は22:45に帰るので、まともな夕食はここが最後です。</p></div>
       <div><h3>車から食べ物を全部出す</h3><p>Buck Meadows の駐車場にも熊は来ます。食料・お菓子・リップクリーム・日焼け止めまで、匂いのあるものは部屋へ。</p></div>
       <div><h3>荷造りを終えて、4:45にアラーム</h3><p>朝は「顔を洗って車に乗る」だけの状態にしておく。上のチェックリストを埋め切ってから寝てください。</p></div>
     </div>
@@ -1182,7 +1316,7 @@ footer a{color:var(--stone-300)}
 <section id="rules" class="band">
   <div class="bgshot" aria-hidden="true"></div>
   <div class="wrap">
-    <p class="eyebrow rv">08 — 現地の掟</p>
+    <p class="eyebrow rv">09 — 現地の掟</p>
     <h2 class="h2 rv">守らないと、<br>高くつく4つ。</h2>
 
     <div class="rules">

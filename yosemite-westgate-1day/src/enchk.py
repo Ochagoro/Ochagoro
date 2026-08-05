@@ -29,7 +29,7 @@ with sync_playwright() as p:
               f"  still-hidden={pg.evaluate(HIDDEN)}"
               f"  errors={errs or 'none'}")
         if w == 390:
-            for sec in ["drive", "day", "pack", "alts"]:
+            for sec in ["drive", "day", "shops", "pack", "alts"]:
                 pg.evaluate(f"document.getElementById('{sec}').scrollIntoView()")
                 pg.wait_for_timeout(550)
                 pg.screenshot(path=f"en-{sec}.png")

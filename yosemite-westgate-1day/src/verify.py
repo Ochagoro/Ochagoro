@@ -21,7 +21,7 @@ from playwright.sync_api import sync_playwright
 
 CHROME = sorted(glob.glob("/opt/pw-browsers/chromium-*/chrome-linux/chrome"))
 EXE = CHROME[-1] if CHROME else None
-SECTIONS = ["hero", "drive", "base", "profile", "day", "alts", "pack", "eve", "rules"]
+SECTIONS = ["hero", "drive", "base", "profile", "day", "alts", "shops", "pack", "eve", "rules"]
 VIEWPORTS = [("mobile", {"width": 390, "height": 844}), ("desk", {"width": 1280, "height": 900})]
 
 HOST_RESET = """*,*::before,*::after{box-sizing:border-box;border:0 solid}
