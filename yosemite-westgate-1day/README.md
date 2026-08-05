@@ -17,6 +17,9 @@ Yosemite Westgate Lodge（Buck Meadows, CA / State Hwy 120）を拠点に、
 
 ## 中身
 
+- 移動日（8/5 水）: Mountain View 11:00 発 → Groveland で補給 → ロッジ →
+  到着後の4時間半の使い方3案（セコイア / Hetch Hetchy / 渓谷直行）
+- 出発前に効いてくる道路規制・工事・トレイル閉鎖のまとめ
 - 本命プラン（04:45 起床 → 22:45 帰着）: 渓谷の朝 → 川で昼 → Glacier Point で日没
 - 別プラン2案: Tioga Road 高地プラン / 半日ゆったりプラン
 - 1日の標高プロファイル（930m → 2,476m → 930m）

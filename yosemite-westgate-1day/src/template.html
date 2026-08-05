@@ -247,6 +247,37 @@ html.js .rv:not(.in){opacity:0;transform:translateY(22px)}
 .stops .nm span{display:block;font-family:var(--f-mono);font-size:.66rem;color:var(--stone-400);letter-spacing:.04em}
 .stops .tm{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:.78rem;color:var(--stone-300);text-align:right;white-space:nowrap}
 
+/* ───────────── road-conditions alert ─────────────
+   Gold rather than the alpenglow accent: these are advisories to read before
+   leaving, not the emphasis the page is built around. */
+.alert{
+  margin-top:2.2rem;border:var(--rail);border-top:2px solid var(--gold);border-radius:0 0 3px 3px;
+  background:#0D1219;
+  background:color-mix(in srgb,var(--night) 60%,transparent);
+}
+.alert > .hd{
+  display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;
+  padding:.8rem .95rem .7rem;border-bottom:var(--rail);
+}
+.alert > .hd b{
+  font-family:var(--f-mono);font-weight:600;font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);
+}
+.alert > .hd span{font-family:var(--f-mono);font-size:.66rem;color:var(--stone-400)}
+.alert dl{display:grid}
+.alert dt{
+  font-family:var(--f-mono);font-size:.63rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--stone-400);padding:.7rem .95rem 0;
+}
+.alert dd{padding:.1rem .95rem .7rem;font-size:.88rem;line-height:1.7;color:var(--stone-300)}
+.alert dd + dt{border-top:var(--rail);padding-top:.7rem}
+.alert dd strong{color:var(--snow);font-weight:600}
+.alert dd em{font-style:normal;color:var(--gold)}
+.alert .foot{
+  border-top:var(--rail);padding:.75rem .95rem;font-size:.83rem;color:var(--stone-300);line-height:1.7;
+}
+.alert .foot b{font-family:var(--f-mono);color:var(--snow);font-weight:600;letter-spacing:.02em}
+
 /* honest-August fact rows */
 .facts{display:grid;gap:1px;background:color-mix(in srgb,var(--stone-600) 55%,transparent);border:var(--rail);border-radius:3px;overflow:hidden;margin-top:2.2rem}
 .facts > div{background:var(--stone-900);padding:1rem 1.05rem;display:grid;gap:.3rem}
@@ -535,9 +566,9 @@ footer a{color:var(--stone-300)}
   <div class="shot" role="img" aria-label="トンネルビューから見たヨセミテ渓谷。左にエル・キャピタン、奥にハーフドーム"></div>
   <div class="veil"></div>
   <div class="wrap hero-inner">
-    <p class="eyebrow kicker">Westgate Lodge → Yosemite NP<span style="opacity:.55"> ／ </span>August</p>
+    <p class="eyebrow kicker">Mountain View → Westgate Lodge → Yosemite NP<span style="opacity:.55"> ／ </span>Aug 5–6</p>
     <h1>西ゲートから、<em>丸1日。</em></h1>
-    <p class="sub">Buck Meadows のロッジは、公園の入口まで 12マイル。この距離を武器にできるのは「暗いうちに出る」人だけです。渓谷の朝いちばんの光から、グレイシャーポイントの日没まで、17時間半の設計図。</p>
+    <p class="sub">Buck Meadows のロッジは、公園の入口まで 12マイル。この距離を武器にできるのは「暗いうちに出る」人だけです。<b style="color:var(--snow);font-weight:600">水曜は移動と軽い前菜、木曜が本番。</b>渓谷の朝いちばんの光から、グレイシャーポイントの日没まで、17時間半の設計図。</p>
 
     <dl class="vitals">
       <div><dt class="k">出発</dt><dd class="v">05:10<small>ロッジ</small></dd></div>
@@ -552,6 +583,7 @@ footer a{color:var(--stone-300)}
 
 <nav id="nav" aria-label="ページ内ナビゲーション">
   <ul>
+    <li><a href="#drive">移動日</a></li>
     <li><a href="#base">前提</a></li>
     <li><a href="#profile">高低差</a></li>
     <li><a href="#day">1日の流れ</a></li>
@@ -562,10 +594,139 @@ footer a{color:var(--stone-300)}
   </ul>
 </nav>
 
+<!-- ════════════════════ DRIVE DAY ════════════════════ -->
+<section id="drive" class="band">
+  <div class="wrap">
+    <p class="eyebrow rv">01 — 移動日 · 8月5日（水）</p>
+    <h2 class="h2 rv">11:00、Mountain View。<br>ゲートまで 235km。</h2>
+    <p class="lede rv">今日の仕事は3つだけです。<strong>安全に着く。Groveland で明日の分を買い込む。日が落ちる前に park に一度だけ足を踏み入れる。</strong>到着日に渓谷まで往復すると、明日の4:45起きが成立しません。今日は「軽い前菜」に留めるのが、明日をいちばん美味しくする組み立てです。</p>
+
+    <dl class="vitals rv">
+      <div><dt class="k">出発</dt><dd class="v">11:00<small>MV</small></dd></div>
+      <div><dt class="k">距離</dt><dd class="v">約235<small>km</small></dd></div>
+      <div><dt class="k">運転</dt><dd class="v">2:50<small>+休憩</small></dd></div>
+      <div><dt class="k">ゲート着</dt><dd class="v">15:30<small>目安</small></dd></div>
+    </dl>
+
+    <div class="corridor rv">
+      <div class="head"><span class="t">CA-237 → I-680 → I-580 → I-205 → CA-120 East</span><span class="r">水曜・通常時</span></div>
+      <ul class="stops">
+        <li><span class="dot"></span><span class="nm"><b>Mountain View 発</b><span>CA-237 経由で I-680 北へ</span></span><span class="tm">11:00</span></li>
+        <li><span class="dot"></span><span class="nm"><b>Livermore / I-580</b><span>渋滞の可能性があるのはここまで</span></span><span class="tm">11:50</span></li>
+        <li><span class="dot"></span><span class="nm"><b>Manteca で CA-120 へ</b><span>I-205 から分岐。ここから一本道</span></span><span class="tm">12:20</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Oakdale で昼食</b><span>Hwy 120 沿い・最後のまとまった町／45分</span></span><span class="tm">12:50</span></li>
+        <li><span class="dot"></span><span class="nm"><b>Moccasin → New Priest Grade</b><span>本線を使う。Old Priest Grade は勾配17%</span></span><span class="tm">14:00</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Groveland で全部買う</b><span>給油・明日の食料・水・氷／30分</span></span><span class="tm">14:15</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Yosemite Westgate Lodge</b><span>チェックイン、荷物を降ろす／20分</span></span><span class="tm">14:50</span></li>
+        <li class="key"><span class="dot"></span><span class="nm"><b>Big Oak Flat 入口ゲート</b><span>$35／台。夕方は出る車のほうが多い</span></span><span class="tm">15:30</span></li>
+      </ul>
+    </div>
+
+    <div class="alert rv">
+      <div class="hd"><b>今日と明日、効いてくる規制</b><span>NPS Current Conditions より</span></div>
+      <dl>
+        <dt>Big Oak Flat Road</dt>
+        <dd>Foresta〜Crane Flat 間で防火の植生処理。<strong>平日は約15分の遅延。</strong>今日も明日も必ず通る区間なので、時間はこれを含んで見てあります。</dd>
+
+        <dt>Mist Trail — 明日は木曜</dt>
+        <dd>6月30日〜10月、<strong>月〜木は 7:00–15:30 に階段部分（John Muir Trail 分岐〜Vernal Fall 上）が閉鎖。</strong>Vernal Fall Footbridge までの往復は影響なし。滝の上まで行きたいなら John Muir Trail 経由に回るか、15:30以降に登ることになります。<em>明日のプランはこれを織り込んで直してあります。</em></dd>
+
+        <dt>El Portal Road と渓谷内</dt>
+        <dd>舗装工事。日中 8:00–20:00 は最大15分、<strong>夜間（日〜木 21:00–7:00）は最大30分。</strong>明日の朝いち渓谷入り（6:35着）は夜間工事の時間帯に当たります。30分の余裕を見て、出発を5:00に早めるのが安全側。</dd>
+
+        <dt>Glacier Point Road</dt>
+        <dd>樹木伐採で 8:00–16:00 に約15分の遅延（8月中）。明日は16:15通過の想定なので、ほぼ抜けたあとに入る形になります。</dd>
+
+        <dt>火気制限</dt>
+        <dd>標高8,000ft以下で発効中。焚き火・炭は不可。8月のシエラは火災シーズンです。</dd>
+
+        <dt>Groveland 周辺の火災</dt>
+        <dd>7月に Priest Fire で Hwy 120 が一時通行止めになりましたが、<strong>避難指示は解除済み・道路は通行可。</strong></dd>
+      </dl>
+      <div class="foot">出発前に <b>209-372-0200</b>（1 → 1 で録音の道路情報）か <a href="https://www.nps.gov/yose/planyourvisit/conditions.htm">NPS Current Conditions</a> を1分だけ確認してください。火災シーズンの Hwy 120 は当日変わります。</div>
+    </div>
+
+    <h3 class="h2 rv" style="font-size:clamp(1.35rem,1.1rem + 1.4vw,1.9rem);margin-top:3rem">着いてからの4時間、3つの使い方</h3>
+    <p class="lede rv">ゲートを15:30に通れば、日没20:05まで4時間半あります。どれを選ぶかは「明日をどう過ごすか」で決まります。</p>
+
+    <div class="tabs rv" role="tablist" aria-label="到着日午後の選択">
+      <button role="tab" id="tab-d1" aria-controls="p-d1" aria-selected="true">推奨｜セコイアの森</button>
+      <button role="tab" id="tab-d2" aria-controls="p-d2" aria-selected="false">Hetch Hetchy</button>
+      <button role="tab" id="tab-d3" aria-controls="p-d3" aria-selected="false">渓谷に直行</button>
+    </div>
+
+    <div class="panel" id="p-d1" role="tabpanel" aria-labelledby="tab-d1">
+      <div class="banner">
+        <img src="{{IMG:sequoia}}" alt="トゥオルミ・グローブのジャイアントセコイアを見上げる" loading="lazy" decoding="async">
+        <div class="cap">
+          <h3>Tuolumne Grove — 明日と1ミリも重複しない</h3>
+          <p>ロッジから35分／往復4km／夕方の斜光が赤い樹皮に当たる</p>
+        </div>
+      </div>
+      <div class="body">
+        <ul class="mini">
+          <li><span class="t">15:50</span><span class="d"><b>Crane Flat の登山口</b>に到着。ゲートから20分<em>駐車場は夕方なら空いている</em></span></li>
+          <li><span class="t">16:00</span><span class="d"><b>セコイアの森へ下る</b>／往復4km、行きは下り500m・<strong>帰りがその登り返し</strong>。約20本のジャイアントセコイアと、幹を歩いて抜けられる Tunnel Tree<em>1.5〜2時間／水を持って</em></span></li>
+          <li><span class="t">18:15</span><span class="d">Crane Flat 発 → ロッジへ<em>約35分</em></span></li>
+          <li><span class="t">19:00</span><span class="d"><b>Lucky Buck Cafe で夕食</b>／ロッジ併設<em>21:00まで。明日の夜は22時過ぎに帰るので、まともな夕食は今夜が最後</em></span></li>
+          <li><span class="t">19:45</span><span class="d"><b>Rim of the World 展望台で日没</b>／ロッジから10分<em>トゥオルミ峡谷に日が落ちる。車を降りて5分の贅沢</em></span></li>
+          <li><span class="t">20:30</span><span class="d">ロッジへ。<b>明日の準備</b>（下の「前夜」の6項目）<em>荷造りを終えてから寝る</em></span></li>
+          <li><span class="t">21:30</span><span class="d"><b>就寝</b><em>4:45起き。7時間眠れる</em></span></li>
+        </ul>
+        <p class="verdict"><b>これを推す理由：</b>明日のプランに Tuolumne Grove は入っていません。つまり今日ここに行けば、この旅で「渓谷・高地の森・断崖の日没」が全部揃います。しかもロッジから近いので、運転で疲れ切った到着日に往復2時間を足さずに済み、<b>明日の4:45起きが現実的に成立します。</b></p>
+      </div>
+    </div>
+
+    <div class="panel" id="p-d2" role="tabpanel" aria-labelledby="tab-d2" hidden>
+      <div class="banner">
+        <img src="{{IMG:hetchhetchy}}" alt="ヘッチヘッチー貯水池と周囲の花崗岩の壁" loading="lazy" decoding="async">
+        <div class="cap">
+          <h3>Hetch Hetchy — 人が10分の1のヨセミテ</h3>
+          <p>入園ゲートを通らない／専用の入口／西ゲート泊でこそ行ける</p>
+        </div>
+      </div>
+      <div class="body">
+        <ul class="mini">
+          <li><span class="t">15:10</span><span class="d">ロッジ発。Big Oak Flat ゲートの<strong>手前</strong>で <b>Evergreen Road</b> に入る<em>Hetch Hetchy は独自の入口ゲートを持つ</em></span></li>
+          <li><span class="t">15:50</span><span class="d">Camp Mather → Hetch Hetchy 入口ゲート<em>夏は概ね朝〜21時。時間は必ず現地掲示で確認</em></span></li>
+          <li><span class="t">16:20</span><span class="d"><b>O'Shaughnessy Dam</b> の駐車場<em>ここが終点。道はここまで</em></span></li>
+          <li><span class="t">16:30</span><span class="d"><b>ダムの上を歩いて対岸のトンネルへ</b>／往復1.5kmだけでも十分に効く<em>足元に貯水池、頭上に花崗岩の壁</em></span></li>
+          <li><span class="t">17:00</span><span class="d">余力があれば <b>Wapama Falls</b> 方向へ／往復8km・2.5時間<em>8月の滝は細い。往復の時間と日没を天秤にかけて</em></span></li>
+          <li><span class="t">18:45</span><span class="d">撤収。<strong>Hetch Hetchy の道は夜間閉まる</strong>ので粘りすぎない<em>閉門時刻を過ぎると出られない</em></span></li>
+          <li><span class="t">19:45</span><span class="d">ロッジ着 → Lucky Buck Cafe で夕食<em>21:00まで</em></span></li>
+        </ul>
+        <p class="verdict"><b>向いているのは：</b>混雑が本気で嫌な人／ヨセミテが2回目以上の人／土木構造物が好きな人。<br><b>注意：</b>8月の Hetch Hetchy は滝がほぼ枯れて、主役は「巨大な貯水池と裸の花崗岩」になります。ジョン・ミューアが最後まで反対したダムに沈んだ谷、という歴史を知って行くと面白さが倍増する場所です。</p>
+      </div>
+    </div>
+
+    <div class="panel" id="p-d3" role="tabpanel" aria-labelledby="tab-d3" hidden>
+      <div class="banner">
+        <img src="{{IMG:valleyview}}" alt="Valley View から見た夕方のエル・キャピタンとマーセド川" loading="lazy" decoding="async">
+        <div class="cap">
+          <h3>渓谷に直行 — 感動は最大、代償も最大</h3>
+          <p>Tunnel View で日没／ただし明日の朝と丸かぶり</p>
+        </div>
+      </div>
+      <div class="body">
+        <ul class="mini">
+          <li><span class="t">15:10</span><span class="d">ロッジ発 → Big Oak Flat Rd を下る<em>約1時間10分</em></span></li>
+          <li><span class="t">16:20</span><span class="d"><b>Valley View</b>／マーセド川とエル・キャピタン<em>夕方は光が谷の奥から来る</em></span></li>
+          <li><span class="t">16:50</span><span class="d"><b>El Capitan Meadow</b> で双眼鏡／壁のクライマーを探す<em>この時間帯がいちばん見つかる</em></span></li>
+          <li><span class="t">18:00</span><span class="d">マーセド川で足を浸ける／買っておいた夕食<em>渓谷の暑さが引く時間</em></span></li>
+          <li><span class="t">19:30</span><span class="d"><b>Tunnel View で場所を取る</b><em>日没前は駐車場が埋まる</em></span></li>
+          <li><span class="t">20:05</span><span class="d"><b>日没</b>。20:35の薄明終了まで粘る<em>今日の頂点</em></span></li>
+          <li><span class="t">21:30</span><span class="d">ロッジ着<em>4:45起きまで7時間15分。実質の睡眠は5時間台</em></span></li>
+        </ul>
+        <p class="verdict"><b>正直に言うと、これは勧めません。</b>明日の朝いちで Valley View と Tunnel View に行く設計なので、今日行くと同じ場所を2回見ることになります。そして帰着21:30から4:45起きは、明日の後半で必ず効いてきます。<br><b>選ぶなら条件つきで：</b>明日を「ゆったりプラン」に差し替えて、今夜を旅のハイライトにする。それなら筋が通ります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ════════════════════ BASE ════════════════════ -->
 <section id="base" class="band">
   <div class="wrap">
-    <p class="eyebrow rv">01 — 拠点</p>
+    <p class="eyebrow rv">02 — 拠点</p>
     <h2 class="h2 rv">Buck Meadows は、<br>「早く着ける」宿である。</h2>
     <p class="lede rv">Yosemite Westgate Lodge（7633 State Hwy 120）は Big Oak Flat 入口ゲートまで約12マイル・20分。園内の宿より安く、園外の他の宿より圧倒的に近い。この20分は、夏のヨセミテでは「駐車場を確保できるかどうか」とほぼ同義です。ロッジ併設の Lucky Buck Cafe は7:00開店なので、朝食は前夜に買っておくのが正解。</p>
 
@@ -606,13 +767,13 @@ footer a{color:var(--stone-300)}
 <!-- ════════════════════ ELEVATION ════════════════════ -->
 <section id="profile" class="band">
   <div class="wrap">
-    <p class="eyebrow rv">02 — 高低差</p>
+    <p class="eyebrow rv">03 — 高低差</p>
     <h2 class="h2 rv">1日で 1,500m 登って、降りる。</h2>
-    <p class="lede rv">この日の主役は距離ではなく標高です。930mの宿を出て、渓谷底1,200m、滝の上1,537m、そして夕方に一気に2,476m。上に行くほど気温は下がり、紫外線は強くなり、空気は薄くなります。上着と水は「高さのための装備」だと思ってください。</p>
+    <p class="lede rv">この日の主役は距離ではなく標高です。930mの宿を出て、渓谷底1,200m、滝を見上げる橋で1,341m、そして夕方に一気に2,476m。上に行くほど気温は下がり、紫外線は強くなり、空気は薄くなります。上着と水は「高さのための装備」だと思ってください。</p>
 
     <p class="eyebrow" style="margin-top:1.6rem;color:var(--stone-400)" id="charthint">← 横にスクロールできます</p>
     <div class="chart rv" id="chart">
-      <svg viewBox="0 0 1000 300" role="img" aria-label="1日の標高プロファイル。05:10 に標高930メートルの Buck Meadows を出発し、渓谷底の1,200メートル前後で日中を過ごし、16:45 に Glacier Point 2,199メートル、18:00 に Sentinel Dome 2,476メートルで最高点に達し、22:45 に930メートルへ戻る。">
+      <svg viewBox="0 0 1000 300" role="img" aria-label="1日の標高プロファイル。05:10 に標高930メートルの Buck Meadows を出発し、渓谷底の1,200メートル前後で日中を過ごし、滝を見上げる橋で1,341メートル、16:45 に Glacier Point 2,199メートル、18:00 に Sentinel Dome 2,476メートルで最高点に達し、22:45 に930メートルへ戻る。">
         <defs>
           <linearGradient id="elevfill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#FF7A4D" stop-opacity=".34"/>
@@ -633,19 +794,19 @@ footer a{color:var(--stone-300)}
           <text x="20" y="64">2,500m</text>
         </g>
 
-        <path class="fillarea" d="M29,243 L60,171 L104,209 L127,177 L158,209 L198,206 L340,166 L447,208 L580,208 L647,81 L713,46 L824,81 L847,81 L967,243 L967,285 L29,285 Z"/>
-        <polyline class="ln" points="29,243 60,171 104,209 127,177 158,209 198,206 340,166 447,208 580,208 647,81 713,46 824,81 847,81 967,243"/>
+        <path class="fillarea" d="M29,243 L60,171 L104,209 L127,177 L158,209 L198,206 L340,191 L447,208 L580,208 L647,81 L713,46 L824,81 L847,81 L967,243 L967,285 L29,285 Z"/>
+        <polyline class="ln" points="29,243 60,171 104,209 127,177 158,209 198,206 340,191 447,208 580,208 647,81 713,46 824,81 847,81 967,243"/>
 
         <g class="node">
           <circle cx="29" cy="243" r="3.2"/><circle cx="198" cy="206" r="3.2"/>
-          <circle cx="340" cy="166" r="3.2"/><circle cx="647" cy="81" r="3.2"/>
+          <circle cx="340" cy="191" r="3.2"/><circle cx="647" cy="81" r="3.2"/>
           <circle cx="713" cy="46" r="4.4"/><circle cx="967" cy="243" r="3.2"/>
         </g>
 
         <g class="lbl">
           <text x="29" y="262" text-anchor="start">05:10 ロッジ</text>
           <text x="198" y="225" text-anchor="middle">08:20 渓谷</text>
-          <text x="340" y="155" text-anchor="middle">11:00 Vernal Fall 上</text>
+          <text x="340" y="181" text-anchor="middle">11:00 Vernal Fall の橋</text>
           <text x="647" y="70" text-anchor="middle">16:45 Glacier Pt</text>
           <text x="713" y="30" text-anchor="middle" class="peak">18:00 Sentinel Dome 2,476m</text>
           <text x="967" y="262" text-anchor="end">22:45 帰着</text>
@@ -658,7 +819,7 @@ footer a{color:var(--stone-300)}
 <!-- ════════════════════ THE DAY ════════════════════ -->
 <section id="day" class="band">
   <div class="wrap">
-    <p class="eyebrow rv">03 — 本命プラン</p>
+    <p class="eyebrow rv">04 — 本命プラン</p>
     <h2 class="h2 rv">渓谷の朝、川の昼、<br>断崖の日没。</h2>
     <p class="lede rv">西ゲート泊の強みを全部使う組み立て。「朝いちばんに人のいない渓谷を取り、暑い時間は川で潰し、夕方に標高を上げて日没を取る」。これが8月のヨセミテで一番おいしい順番です。</p>
 
@@ -727,14 +888,16 @@ footer a{color:var(--stone-300)}
           <img src="{{IMG:merced}}" alt="ヨセミテ渓谷を流れるマーセド川と草地" loading="lazy" decoding="async">
           <figcaption><span>Merced River · Yosemite Valley</span><span>Happy Isles 起点</span></figcaption>
         </figure>
-        <p>シャトルで Happy Isles へ。ここから2つの選択肢：</p>
+        <div class="tip"><b>木曜日はここが閉まっている</b>Mist Trail の<b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">階段部分（JMT分岐〜Vernal Fall 上）は、月〜木の 7:00–15:30 が閉鎖</b>（10月まで工事）。9時にあの階段を登るルートは、明日は選べません。下の A と B はそれを踏まえた選択肢です。</div>
+        <p>シャトルで Happy Isles へ。<strong>Footbridge までの道は曜日も時間も関係なく開いています。</strong></p>
         <div class="chips">
           <span class="acc">A｜Footbridge まで 2.6 km ↑120m 約1.5時間</span>
         </div>
         <div class="chips">
-          <span class="acc">B｜Vernal Fall 上まで 3.9 km ↑300m 約3時間</span>
+          <span class="acc">B｜John Muir Trail 経由で滝上 約8 km ↑400m 約4時間</span>
         </div>
-        <p>Bは花崗岩の階段を600段以上登ります。<strong>8月は水量が少ないので、春のようにずぶ濡れにはなりません</strong>——その代わり日陰が少なく暑い。10時までに登り始めること。水は1人1.5L以上を必ず持って。</p>
+        <p><strong>A が本命です。</strong>最初の1.6kmは舗装路で、0.8km地点の Footbridge から見上げる Vernal Fall が、この時期いちばん確実に「水が落ちている滝」です。ここで折り返しても渓谷を歩いた満足感は十分に残ります。</p>
+        <p>Bは閉鎖区間を迂回して John Muir Trail の九十九折りを登るルート。<strong>距離も高低差もAの倍以上で、8月の日向は本気で暑い。</strong>その代わり Clark Point からナイアガラのように見える Nevada Fall が撮れます。行くなら水を1人2L、そして夕方の Glacier Point は諦める覚悟で。</p>
         <div class="tip"><b>体力を残したいなら</b>Mist Trail をやめて <b style="display:inline;text-transform:none;letter-spacing:0;font-size:1em;color:var(--gold)">Cook's Meadow Loop</b>（1.6km・完全平坦）へ。草地の真ん中からハーフドームとヨセミテ滝の岩壁を見上げる、渓谷でいちばん贅沢な散歩道です。夕方の Glacier Point に体力を回せます。</div>
       </article>
 
@@ -817,7 +980,7 @@ footer a{color:var(--stone-300)}
 <!-- ════════════════════ ALTERNATES ════════════════════ -->
 <section id="alts" class="band">
   <div class="wrap">
-    <p class="eyebrow rv">04 — 別プラン</p>
+    <p class="eyebrow rv">05 — 別プラン</p>
     <h2 class="h2 rv">渓谷に行かない、<br>という選択肢もある。</h2>
     <p class="lede rv">West Gate Lodge から Crane Flat（Tioga Rd の入口）まではわずか35分。実は渓谷より近い。混雑と暑さが苦手なら、こちらのほうが体験の密度は高いかもしれません。</p>
 
@@ -878,7 +1041,7 @@ footer a{color:var(--stone-300)}
 <!-- ════════════════════ PACKING ════════════════════ -->
 <section id="pack" class="band">
   <div class="wrap">
-    <p class="eyebrow rv">05 — 持ち物</p>
+    <p class="eyebrow rv">06 — 持ち物</p>
     <div class="packhead rv">
       <h2 class="h2 tight">車に積むもの、<br>体に着けるもの。</h2>
       <div class="ring">
@@ -941,7 +1104,7 @@ footer a{color:var(--stone-300)}
 <!-- ════════════════════ NIGHT BEFORE ════════════════════ -->
 <section id="eve" class="band">
   <div class="wrap">
-    <p class="eyebrow rv">06 — 前夜</p>
+    <p class="eyebrow rv">07 — 前夜</p>
     <h2 class="h2 rv">この6つを寝る前に。</h2>
     <p class="lede rv">4:45起きの朝に判断を残さないこと。前夜の30分が、翌日の2時間になります。</p>
 
@@ -960,7 +1123,7 @@ footer a{color:var(--stone-300)}
 <section id="rules" class="band">
   <div class="bgshot" aria-hidden="true"></div>
   <div class="wrap">
-    <p class="eyebrow rv">07 — 現地の掟</p>
+    <p class="eyebrow rv">08 — 現地の掟</p>
     <h2 class="h2 rv">守らないと、<br>高くつく4つ。</h2>
 
     <div class="rules">
@@ -1061,21 +1224,25 @@ footer a{color:var(--stone-300)}
     chart.classList.add('in');
   }
 
-  /* alternate plan tabs */
-  const tabs = [...document.querySelectorAll('[role="tab"]')];
-  const show = (id) => tabs.forEach(t => {
-    const on = t.id === id;
-    t.setAttribute('aria-selected', on);
-    document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
-  });
-  tabs.forEach((t, i) => {
-    t.addEventListener('click', () => show(t.id));
-    t.addEventListener('keydown', (e) => {
-      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-      if (!d) return;
-      e.preventDefault();
-      const n = tabs[(i + d + tabs.length) % tabs.length];
-      n.focus(); show(n.id);
+  /* tab groups — scoped per tablist, since the page has more than one */
+  document.querySelectorAll('[role="tablist"]').forEach(list => {
+    const tabs = [...list.querySelectorAll('[role="tab"]')];
+    const show = (id) => tabs.forEach(t => {
+      const on = t.id === id;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    tabs.forEach((t, i) => {
+      t.tabIndex = t.getAttribute('aria-selected') === 'true' ? 0 : -1;
+      t.addEventListener('click', () => show(t.id));
+      t.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        const n = tabs[(i + d + tabs.length) % tabs.length];
+        n.focus(); show(n.id);
+      });
     });
   });
 

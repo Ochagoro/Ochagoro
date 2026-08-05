@@ -32,12 +32,13 @@ src = re.sub(r"\{\{IMG:([a-z0-9_]+)\}\}",
              lambda m: d64(f"img/{m.group(1)}.webp", "image/webp"), src)
 
 USED = ["hero_tunnelview","valleyview","bridalveil","merced","elcap","halfdome_gp",
-        "taftpoint","gp_sunset","tenaya","sequoia","stars"]
+        "taftpoint","gp_sunset","tenaya","sequoia","hetchhetchy","stars"]
 NAMES = {"hero_tunnelview":"Tunnel View","valleyview":"Valley View / El Capitan",
  "bridalveil":"Bridalveil Fall","merced":"Merced River","elcap":"El Capitan",
  "halfdome_gp":"Half Dome from Glacier Point","taftpoint":"Taft Point",
  "gp_sunset":"Half Dome at sunset","tenaya":"Tenaya Lake",
- "sequoia":"Tuolumne Grove","stars":"Yosemite night sky"}
+ "sequoia":"Tuolumne Grove","hetchhetchy":"Hetch Hetchy Reservoir",
+ "stars":"Yosemite night sky"}
 rows = [f'<li>{html.escape(NAMES[k])} — {html.escape(meta[k]["artist"] or "Unknown")} / '
         f'{html.escape(meta[k]["license"])} ·<a href="{meta[k]["page"]}">Wikimedia Commons</a></li>'
         for k in USED]
