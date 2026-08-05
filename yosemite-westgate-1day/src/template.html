@@ -32,7 +32,10 @@
 
   --f-disp:Overpass,'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic',
            'Noto Sans JP',system-ui,sans-serif;
-  --f-mono:'Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  /* Plex Mono is Latin-only; name the JP faces explicitly so iOS does not
+     fall through to a Chinese font for the kanji in labels and captions. */
+  --f-mono:'Plex Mono',ui-monospace,SFMono-Regular,Menlo,
+           'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic','Noto Sans JP',monospace;
 
   --rail:1px solid color-mix(in srgb,var(--stone-600) 70%,transparent);
   --pad:clamp(1.15rem,4.5vw,2.6rem);
