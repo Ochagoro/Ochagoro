@@ -15,6 +15,14 @@ import base64, html, json, os, re
 
 src = open("template.html", encoding="utf-8").read()
 src = re.sub(r"\n\s*--alpen-dim:[^\n]*", "", src)
+
+# CSS math functions require whitespace around + and -. Without it the whole
+# declaration is invalid and silently dropped, and what the element falls back
+# to then depends on the surrounding reset — so the page renders differently
+# standalone than it does inside a host. Fail loudly instead.
+bad = [m.group(0) for m in re.finditer(r"\b(?:clamp|calc|min|max)\([^;{}]*?\)", src)
+       if re.search(r"(?<=[\d%a-z])[+\-](?=[\d.])", m.group(0))]
+assert not bad, "unspaced operator in CSS math function:\n  " + "\n  ".join(sorted(set(bad)))
 meta = json.load(open("img/meta.json"))
 d64 = lambda p, m: f"data:{m};base64," + base64.b64encode(open(p, "rb").read()).decode()
 

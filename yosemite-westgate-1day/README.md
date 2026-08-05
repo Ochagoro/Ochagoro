@@ -11,7 +11,8 @@ Yosemite Westgate Lodge（Buck Meadows, CA / State Hwy 120）を拠点に、
 - `src/template.html` — 編集用のソース。画像とフォントは `{{IMG:key}}` / `{{FONT:name}}` のプレースホルダ。
 - `src/fetch_assets.py` — Wikimedia Commons から写真を取得して WebP に再エンコードし、
   Google Fonts から Latin サブセットの woff2 を落とす。
-- `src/build.py` — テンプレートにアセットを埋め込んで `index.html` を生成する。
+- `src/build.py` — テンプレートにアセットを埋め込んで2種類の成果物を生成する。
+- `src/verify.py` — 2つの成果物が同一に描画されることを検証する（要素のボックス比較＋ピクセル比較）。
 
 ## 中身
 
@@ -28,12 +29,19 @@ cd src
 python3 -m pip install Pillow
 python3 fetch_assets.py   # img/ と fonts/ を生成
 python3 build.py          # standalone.html と artifact 用フラグメントを出力
+python3 verify.py         # 2つが同一に描画されるか検証
 ```
 
 `build.py` は2種類を吐く。`standalone.html` が `index.html` になるもので、
 `<meta charset>` と viewport と `lang="ja"` を持つ完全な HTML ドキュメント。
 この3つが無いとスマホのブラウザが日本語を化けさせたり、980px幅でレイアウトして
 極端に縮小表示したりする（Chrome の文字コード推測は当たるが iOS Safari は外す）。
+
+スタイルシートはリセットを自前で持っている。ブラウザの初期値に頼った箇所があると、
+フラグメントを埋め込むホスト側のリセット CSS 次第で見え方が変わってしまうため。
+`verify.py` はフラグメントをあえて強めのリセットで包んで standalone と突き合わせ、
+差分が出たら落ちる。`build.py` は `clamp()` / `calc()` 内で `+` `-` の前後に
+スペースが無い箇所も弾く（CSS の数式では無効値になり、宣言ごと捨てられる）。
 
 ## 前提と注意
 
