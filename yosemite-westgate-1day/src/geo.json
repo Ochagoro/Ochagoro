@@ -123,5 +123,30 @@
   "lat": 37.74506,
   "lon": -119.59025,
   "name": "Cook's Meadow"
+ },
+ "backwoods": {
+  "lat": 37.761,
+  "lon": -120.86053,
+  "name": "Backwoods Burgers (1214 W F St)"
+ },
+ "marval": {
+  "lat": 37.84033,
+  "lon": -120.22426,
+  "name": "Mar-Val's Main Street Market"
+ },
+ "bigoakflat": {
+  "lat": 37.80086,
+  "lon": -119.87458,
+  "name": "Big Oak Flat Entrance Station"
+ },
+ "degnans": {
+  "lat": 37.74802,
+  "lon": -119.58547,
+  "name": "Degnan's Kitchen"
+ },
+ "villagegrill": {
+  "lat": 37.74671,
+  "lon": -119.58453,
+  "name": "Village Grill"
  }
 }

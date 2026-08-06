@@ -1,10 +1,10 @@
 """Insert Waze / Google Maps handoff links next to every destination.
 
-Coordinates come from geo.json (OSM via Overpass). Where a place could not be
-resolved to a coordinate it gets a name search instead — the three that need it
-are unambiguous businesses in towns, which the apps find reliably. A pin that
-is confidently wrong in the Sierra is the failure mode worth avoiding, so
-nothing here is guessed.
+Every destination carries its own coordinate, from geo.json (OSM via Overpass,
+plus Nominatim for one street address). Never a ?q= name search: resolving a
+name needs connectivity, and there is none in the park, which is exactly where
+someone would be tapping these. Nothing is guessed — a pin that is confidently
+wrong in the Sierra is the failure mode worth designing against.
 """
 import io, json, urllib.parse
 
@@ -28,18 +28,18 @@ def go(key=None, search=None, lang="ja"):
 
 # ── directory entries, in document order ────────────────────────────────
 DIR = [
-    ("Backwoods Burgers",            dict(search="Backwoods Burgers, 1214 W F St, Oakdale, CA")),
+    ("Backwoods Burgers",            dict(key="backwoods")),
     (None,                           None),   # "fill up in Oakdale" — not one place
-    ("Mar-Val Food Stores",          dict(search="Mar-Val Food Stores, 19000 Main St, Groveland, CA")),
+    ("Mar-Val Food Stores",          dict(key="marval")),
     ("Iron Door Saloon",             dict(key="irondoor")),
     ("Rainbow Pool Day Use Area",    dict(key="rainbowpool")),
     ("Yosemite Westgate Lodge",      dict(key="lodge")),
     ("Lucky Buck Cafe",              dict(key="luckybuck")),
     ("Crane Flat Gas Station",       dict(key="craneflat")),
     ("Village Store",                dict(key="villagestore")),
-    ("Degnan's Kitchen",             dict(search="Degnan's Kitchen, Yosemite Village")),
+    ("Degnan's Kitchen",             dict(key="degnans")),
     ("Base Camp Eatery",             dict(key="valleylodge")),
-    ("Village Grill",                dict(search="Village Grill, Yosemite Village")),
+    ("Village Grill",                dict(key="villagegrill")),
     ("Curry Village Pizza Deck",     dict(key="curry")),
     ("Glacier Point Gift Shop",      dict(key="glacierpt")),
 ]
@@ -56,10 +56,10 @@ def anchors(lang):
     # drive-day corridor
     corridor('<span>1214 W F St, Oakdale ／ <b>出発時に給油を済ませる</b></span>' if L
              else '<span>1214 W F St, Oakdale — <b>fill the tank before leaving</b></span>',
-             dict(search="Backwoods Burgers, 1214 W F St, Oakdale, CA"))
+             dict(key="backwoods"))
     corridor('<span>19000 Main St, Groveland ／ 明日の食料・水・氷。30分</span>' if L
              else "<span>19000 Main St, Groveland — tomorrow's food, water, ice. 30 min</span>",
-             dict(search="Mar-Val Food Stores, 19000 Main St, Groveland, CA"))
+             dict(key="marval"))
     corridor('<span>Groveland から東へ15マイル · $10／台・40分</span>' if L
              else '<span>15 mi east of Groveland · $10 per car · 40 min</span>',
              dict(key="rainbowpool"))
@@ -81,7 +81,7 @@ def anchors(lang):
     A += [
         ('<div class="chips"><span class="acc">$35 / vehicle</span><span>cards accepted</span><span>4,900 ft</span></div>' if not L
          else '<div class="chips"><span class="acc">$35 / vehicle</span><span>カード可</span><span>標高 約1,490m</span></div>',
-         dict(search="Big Oak Flat Entrance, Yosemite National Park")),
+         dict(key="bigoakflat")),
         ('<figcaption><span>Valley View / Merced River</span><span>4,000 ft</span></figcaption>' if not L
          else '<figcaption><span>Valley View / Merced River</span><span>1,200 m</span></figcaption>',
          dict(key="valleyview")),
